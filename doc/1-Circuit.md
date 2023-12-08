@@ -1,18 +1,18 @@
-# Class: `Circuit`
+## Class: `Circuit`
 
-## Instance Attributes
+### Instance Attributes
 
 - `title`: The title of circuit
 - `nodes_dict`: Dictnary that contain all node as key and value
 - `gnd`: Reference node of circuit -> $V=0$
 
-## Methods
+### Methods
 
-### `create_node(name)`
+#### `create_node(name)`
 
 create node with name value and make sure it's not exit before
 
-### `get_nodes_number()`
+#### `get_nodes_number()`
 
 Get number of nodes in Curcuit
 
