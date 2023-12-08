@@ -2,31 +2,63 @@
 
 ### Instance Attributes
 
-- `title`: The title of circuit
-- `nodes_dict`: Dictnary that contain all node as key and value
-- `gnd`: Reference node of circuit -> $V=0$
+- `title`: The title of the circuit.
+- `nodes_dict`: A dictionary containing all nodes as keys and values.
+- `gnd`: Reference node of the circuit -> $V=0$.
 
 ### Methods
 
 #### `create_node(name)`
 
-create node with name value and make sure it's not exit before
+- Creates a node with a given name and ensures it doesn't exist before.
+
+#### `add_node(name)`
+
+- Adds a node with a given name value, replacing it if it already exists.
 
 #### `get_nodes_number()`
 
-Get number of nodes in Curcuit
+- Gets the number of nodes in the circuit.
+
+#### `is_nonlinear()`
+
+- Checks if the circuit is linear or not.
+
+#### `get_elem_by_name(part_id)`
+
+- Gets the object by its name or ID.
+
+#### `add_resistor(part_id, n1, n2, value):`
+
+- Adds a resistor object by its name or ID.
 
 #### Parameters
 
-- `num`: The number to be added.
+-   `part_id` : string
+        The resistor part_id (e.g., "R1"). The first letter is replaced by an R.
 
-# Usage
+-    `n1, n2` : string
+        The nodes to which the resistor is connected.
 
-- **importing**:
+-    `value` : float,
+
+    The resistance between ``n1`` and ``n2`` in Ohm.
+
+    .. seealso::
+    :func:`add_resistor`, :func:`add_inductor` :func:`add_vsource`, :func:`add_isource`, :func:`add_diode`, :func:`add_mos`, :func:`add_vcvs`, :func:`add_vccs`, :func:`add_cccs`, :func:`add_user_defined`, :func:`remove_elem`
+
+
+#### `remove_elem(elem_or_id)`
+
+- Removes an object from the circuit by its object or ID.
+
+## Usage
+
+- **Importing**:
     ```python
     from ahkab.circuit import Circuit
     ```
-- **main functions**: 
+- **Main Functions**: 
     ```python
     Circuit.add_resistor()
     Circuit.add_capacitor()
@@ -41,16 +73,12 @@ Get number of nodes in Curcuit
     Circuit.add_user_defined()
     Circuit.remove_elem()
     ```
-- **example**:
+- **Example**:
     ```python
     mycircuit = circuit.Circuit(title="Example circuit", filename=None)
     # no filename since there will be no deck associated with this circuit.
-    # get the ref node (gnd)
+    # get the reference node (gnd)
     gnd = mycircuit.get_ground_node()
     # add a node named n1 and a 600 ohm resistor connected between n1 and gnd
     mycircuit.add_resistor(part_id="R1", n1="n1", n2=gnd, R=600)
     ```
-- **useful functions**:
-    ```python
-    #get node id
-    my_circuit.nodes_dict[int_node]

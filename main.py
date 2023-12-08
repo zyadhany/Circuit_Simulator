@@ -23,7 +23,9 @@ cir.add_inductor('L5', 'n6', 'n7', 0.245894)
 cir.add_resistor('R2', 'n8', cir.gnd, 50.)
 
 
-re = cir.get_nodes_number()
+#re = cir.nodes_dict['n2'].is_nonlinear
+
+re = cir.get_elem_by_name('R1').get_op_info([[23.]])
 
 print(re)
 
