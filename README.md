@@ -39,6 +39,7 @@ python3 main.py
 
 
 1. **library**: 
+    
     -from models.ahkab.circuit import Circuit
 2. **Implement changes**: Make changes to the code as needed. Ensure adherence to project guidelines and coding standards.
 3. **Testing**: Test your changes thoroughly to ensure they work as expected.
