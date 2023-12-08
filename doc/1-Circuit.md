@@ -1,41 +1,26 @@
-# Circuit Simulator
+# Class: `Circuit`
 
-This is the Simulation project that provides a GUI interface for circuit analysis.
+## Instance Attributes
 
-## Table of Contents
+- `title`: The title of circuit
+- `nodes_dict`: Dictnary that contain all node as key and value
+- `gnd`: Reference node of circuit -> $V=0$
 
-- [Installation](#installation)
-- [Usage](#usage)
-- [Features](#features)
-- [Contributing](#contributing)
-- [License](#license)
+## Methods
 
-## Installation
+### `create_node(name)`
 
-Steps to install the project:
+create node with name value and make sure it's not exit before
 
-```bash
-pip install numpy
-pip install scipy
-pip install sympy
-pip install tabulate
-pip install matplotlib
-pip install nose
-```
+### `get_nodes_number()`
 
-## Usage
+Get number of nodes in Curcuit
 
-### Running the Application
+#### Parameters
 
-To run the GUI interface, execute the following command:
+- `num`: The number to be added.
 
-```bash
-python3 main.py
-```
-
-### Implementation Notes
-
-#### Define Circuit
+# Usage
 
 - **importing**:
     ```python
@@ -69,27 +54,3 @@ python3 main.py
     ```python
     #get node id
     my_circuit.nodes_dict[int_node]
-    ```
-### Code Structure
-
-
-### Notes
-
-Include any additional notes, tips, or caveats here.
-
-## Features
-
-List of features provided by the project:
-
-- GUI interface for circuit analysis
-- Feature 2
-- ...
-
-## Contributing
-
-
-## License
-
-Specify the project's license.
-
----

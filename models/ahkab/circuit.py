@@ -382,8 +382,7 @@ class Circuit(list):
         return len(set(all_ids)) != len(all_ids)
 
     def get_ground_node(self):
-        """Returns the reference node, AKA GND."""
-        return '0'
+        return self.gnd
 
     def get_elem_by_name(self, part_id):
         """Get a circuit element from its ``part_id`` value.
