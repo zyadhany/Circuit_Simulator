@@ -38,13 +38,27 @@ python3 main.py
 #### Define Circuit
 
 
-1. **library**:
+- **importing**:
     ```python
-    from models.ahkab.circuit import Circuit
+    from ahkab.circuit import Circuit
     ```
-2. **Implement changes**: Make changes to the code as needed. Ensure adherence to project guidelines and coding standards.
-3. **Testing**: Test your changes thoroughly to ensure they work as expected.
-4. **Submit a Pull Request**: Once tested, submit a pull request to the repository's `develop` branch, detailing the changes made and the rationale behind them.
+- **main functions**: 
+    ```python
+    Circuit.add_resistor()
+    Circuit.add_capacitor()
+    Circuit.add_inductor()
+    Circuit.add_vsource()
+    Circuit.add_isource()
+    Circuit.add_diode()
+    Circuit.add_mos()
+    Circuit.add_cccs()
+    Circuit.add_vcvs()
+    Circuit.add_vccs()
+    Circuit.add_user_defined()
+    Circuit.remove_elem()
+    ```
+- **Testing**: Test your changes thoroughly to ensure they work as expected.
+- **Submit a Pull Request**: Once tested, submit a pull request to the repository's `develop` branch, detailing the changes made and the rationale behind them.
 
 ### Code Structure
 
