@@ -1,42 +1,27 @@
 #!/usr/bin/env python3
 
+
 import models.ahkab as ahkab
-from models.ahkab import new_ac, run, plotting 
+from models.ahkab import new_op, run, plotting 
 from models.ahkab.circuit import Circuit
 import numpy as np
 
 
 # Define the circuit
-cir = ahkab.Circuit('Butterworth 1kHz band-pass filter', filename='crr')
-cir.add_vsource('V1', 'fd', cir.gnd, dc_value=0., ac_value=1.)
-cir.add_resistor('R1', 'fd', 'n2', 10000.)
-cir.add_inductor('L1', 'n2', 'n3', 0.245894)
-cir.add_capacitor('C1', 'n3', 'n4', 1.03013e-07)
-cir.add_inductor('L2', 'n4', cir.gnd, 9.83652e-05)
-cir.add_capacitor('C2', 'n4', cir.gnd, 0.000257513)
-cir.add_inductor('L3', 'n4', 'n5', 0.795775)
-cir.add_capacitor('C3', 'n5', 'n6', 3.1831e-08)
-cir.add_inductor('L4', 'n6', cir.gnd, 9.83652e-05)
-cir.add_capacitor('C4', 'n6', cir.gnd, 0.000257513)
-cir.add_capacitor('C5', 'n7', 'n8', 1.03013e-07)
-cir.add_inductor('L5', 'n6', 'n7', 0.245894)
-cir.add_resistor('R2', 'n8', cir.gnd, 50.)
-
-
-#re = cir.nodes_dict['n2'].is_nonlinear
-
-re = cir.get_elem_by_name('R1').get_op_info([[23.]])
-
-print(re)
-
-exit()
+mycir = ahkab.Circuit('Butterworth 1kHz band-pass filter', filename='crr')
+mycir.add_resistor('R1', 'n1', mycir.gnd, value=5)
+mycir.add_vsource('V1', 'n2', 'n1', dc_value=8)
+mycir.add_resistor('R2', 'n2', mycir.gnd, value=2)
+mycir.add_vsource('V2', 'n3', 'n2', dc_value=4)
+mycir.add_resistor('R3', 'n3', mycir.gnd, value=4)
+mycir.add_resistor('R4', 'n3', 'n4', value=1)
+mycir.add_vsource('V3', 'n4', mycir.gnd, dc_value=10)
+mycir.add_resistor('R5', 'n2', 'n4', value=4)
 
 # Define the analysis
-ac1 = new_ac(.97e3, 1.03e3, 100, x0=None)
+op = new_op()
 
-# run it
-res = run(cir, ac1)
-# plot the results
+res = run(mycir, op)
 
-plotting.plot_results('3th order 1kHz Butterworth filter', [('|Vn6|',"")], res['ac'])
+#plotting.plot_results('3th order 1kHz Butterworth filter', [('|Vn6|',"")], res['ac'])
 plotting.show_plots()

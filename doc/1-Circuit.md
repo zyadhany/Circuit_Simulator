@@ -54,10 +54,6 @@
 
 ## Usage
 
-- **Importing**:
-    ```python
-    from ahkab.circuit import Circuit
-    ```
 - **Main Functions**: 
     ```python
     Circuit.add_resistor()
@@ -75,10 +71,14 @@
     ```
 - **Example**:
     ```python
-    mycircuit = circuit.Circuit(title="Example circuit", filename=None)
-    # no filename since there will be no deck associated with this circuit.
-    # get the reference node (gnd)
-    gnd = mycircuit.get_ground_node()
-    # add a node named n1 and a 600 ohm resistor connected between n1 and gnd
-    mycircuit.add_resistor(part_id="R1", n1="n1", n2=gnd, R=600)
+    from ahkab.circuit import Circuit
+
+    mycir.add_resistor('R1', 'n1', mycir.gnd, value=5)
+    mycir.add_vsource('V1', 'n2', 'n1', dc_value=8)
+    mycir.add_resistor('R2', 'n2', mycir.gnd, value=2)
+    mycir.add_vsource('V2', 'n3', 'n2', dc_value=4)
+    mycir.add_resistor('R3', 'n3', mycir.gnd, value=4)
+    mycir.add_resistor('R4', 'n3', 'n4', value=1)
+    mycir.add_vsource('V3', 'n4', mycir.gnd, dc_value=10)
+    mycir.add_resistor('R5', 'n2', 'n4', value=4)
     ```

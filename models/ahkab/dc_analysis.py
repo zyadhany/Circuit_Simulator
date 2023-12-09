@@ -614,6 +614,7 @@ def op_analysis(circ, x0=None, guess=True, outfile=None, verbose=3):
 
     A ``result.op_solution`` instance, if successful, ``None`` otherwise.
     """
+
     if outfile == 'stdout':
         verbose = 0  # silent mode, print out results only.
     if not options.dc_use_guess:
@@ -633,7 +634,6 @@ def op_analysis(circ, x0=None, guess=True, outfile=None, verbose=3):
     N = utilities.remove_row(N, rrow=0)
 
     printing.print_info_line(("Starting op analysis:", 2), verbose)
-
     if x0 is None and guess:
         x0 = dc_guess.get_dc_guess(circ, verbose=verbose)
     # if x0 is not None, use that
@@ -683,8 +683,8 @@ def op_analysis(circ, x0=None, guess=True, outfile=None, verbose=3):
         opsolution.write_to_file()
     if opsolution and (verbose > 2 or outfile == 'stdout') and options.cli:
         opsolution.write_to_file(filename='stdout')
-
     return opsolution
+
 
 
 def mdn_solver(x, mna, circ, T, MAXIT, nv, locked_nodes, time=None,
@@ -946,7 +946,7 @@ def get_td(dx, locked_nodes, n=-1):
     return td
 
 
-def generate_mna_and_N(circ, verbose=3):
+def generate_mna_and_N(circ: 'circuit.Circuit', verbose=3):
     """Generate the full *unreduced* MNA and N matrices required for an MNA analysis
 
     We wish to solve the linear stationary MNA problem:
@@ -983,19 +983,18 @@ def generate_mna_and_N(circ, verbose=3):
         The MNA matrix and constant term vector computed as per above.
 
     """
+
     n_of_nodes = circ.get_nodes_number()
     mna = np.zeros((n_of_nodes, n_of_nodes))
     N = np.zeros((n_of_nodes, 1))
     for elem in circ:
-        if elem.is_nonlinear:
+        if elem.is_nonlinear or isinstance(elem, components.Capacitor):
             continue
-        elif isinstance(elem, components.Resistor):
+        if isinstance(elem, components.Resistor):
             mna[elem.n1, elem.n1] = mna[elem.n1, elem.n1] + elem.g
             mna[elem.n1, elem.n2] = mna[elem.n1, elem.n2] - elem.g
             mna[elem.n2, elem.n1] = mna[elem.n2, elem.n1] - elem.g
             mna[elem.n2, elem.n2] = mna[elem.n2, elem.n2] + elem.g
-        elif isinstance(elem, components.Capacitor):
-            pass  # In a capacitor I(V) = 0
         elif isinstance(elem, components.sources.GISource):
             mna[elem.n1, elem.sn1] = mna[elem.n1, elem.sn1] + elem.alpha
             mna[elem.n1, elem.sn2] = mna[elem.n1, elem.sn2] - elem.alpha
