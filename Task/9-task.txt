@@ -1,0 +1,2 @@
+Given list, find it's length.
+sort it then reverse.

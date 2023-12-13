@@ -1,0 +1,11 @@
+1- https://youtu.be/x7fFnKVAzDI?si=4yjv2PobU7A0qbVG
+2- https://youtu.be/prv7cVm2dxE?si=P57fU4DSPWoC-nL7
+3- https://www.youtube.com/watch?v=mvyEHxIX_lE
+
+
+-Given a, b find those values.
+a + b.
+a - b.
+a * b.
+a % b.
+a / b (two ways, int and double)

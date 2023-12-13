@@ -1,0 +1,1 @@
+Given list, find it's length

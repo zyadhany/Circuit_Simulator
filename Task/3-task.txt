@@ -1,0 +1,1 @@
+Given a number n, determine if it is even or odd.

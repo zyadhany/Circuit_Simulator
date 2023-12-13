@@ -1,0 +1,4 @@
+1- https://www.youtube.com/watch?v=9JJDDKj_tGA&list=PLDoPjvoNmBAyE_gei5d18qkfIe-Z8mocs&index=52
+2- https://www.youtube.com/watch?v=KtjJxOr5sp0&list=PLDoPjvoNmBAyE_gei5d18qkfIe-Z8mocs&index=54
+
+get the summation of all numbers between 1 to n.
