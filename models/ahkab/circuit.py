@@ -1254,7 +1254,7 @@ class _circuit_wrapper:
         self.subckt_node_filter_dict = {}
         self.subckt_node_filter_dict.update(connection_nodes_dict)
         self.subckt_node_filter_dict.update({'0': '0'})
-
+ 
     def add_node(self, ext_name):
         """We want to perform the following conversions:
 
