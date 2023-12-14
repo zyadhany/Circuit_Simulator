@@ -1,0 +1,8 @@
+1- https://www.youtube.com/watch?v=Izwd_n-Ufqo&list=PLDoPjvoNmBAyE_gei5d18qkfIe-Z8mocs&index=56
+2- https://www.youtube.com/watch?v=CCMKMBGUxkc&list=PLDoPjvoNmBAyE_gei5d18qkfIe-Z8mocs&index=57
+3- https://www.youtube.com/watch?v=BNXasw_j4sY&list=PLDoPjvoNmBAyE_gei5d18qkfIe-Z8mocs&index=59
+4- https://www.youtube.com/watch?v=VQHLn1wuDBw&list=PLDoPjvoNmBAyE_gei5d18qkfIe-Z8mocs&index=62
+
+Write function that add 2 numbers with defult value of 0.
+
+def add(a=0, b=0):
