@@ -173,7 +173,7 @@ def _data_abs_arg_pass(res, label):
         units = res.units[label]
     return data, units
 
-def plot_results(title, y2y1_list, results, outfilename=None):
+def plot_results(title, y2y1_list, results, outfilename='tmp/plot.png'):
     """Plot the results.
 
     **Parameters:**

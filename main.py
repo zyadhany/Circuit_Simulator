@@ -22,12 +22,11 @@ cir.add_inductor('L5', 'n6', 'n7', 0.245894)
 cir.add_resistor('R2', 'n8', cir.gnd, 50.)
 
 # Define the analysis
-ac1 = new_ac(.97e3, 1.03e3, 1e2, x0=None)
+ac1 = new_ac(.97e3, 1.03e3, 300, x0=None)
 
 # run it
 res = run(cir, ac1)
 
 # plot the results
-plotting.plot_results('5th order 1kHz Butterworth filter', [('|Vn8|',"")], res['ac'],
-             outfilename='bpf_transfer_fn.png')
+plotting.plot_results('5th order 1kHz Butterworth filter', [('|Vn8|',"")], res['ac'])
 plotting.show_plots()
