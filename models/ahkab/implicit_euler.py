@@ -78,7 +78,7 @@ def get_df_coeff(step):
 
 
 def get_required_values():
-    """Get what values are required by the DF and the FF
+    """ Get what values are required by the DF and the FF
 
     **Returns**
 
@@ -123,7 +123,7 @@ def has_ff():
 
 
 def get_df(pv_array, suggested_step, predict=True):
-    """Get the coefficients for the DF, FF and LTE calculation
+    """ Get the coefficients for the DF, FF and LTE calculation
 
     **Parameters:**
 

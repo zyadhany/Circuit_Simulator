@@ -173,7 +173,10 @@ from . import symbolic
 from . import pz
 
 # parser
-from . import netlist_parser
+try:
+    from . import netlist_parser
+except:
+    pass
 
 # misc
 from . import options
@@ -379,7 +382,7 @@ def new_tran(tstart, tstop, tstep, x0='op', method=transient.TRAP,
 
 
 def new_ac(start, stop, points, x0='op', sweep_type='LOG', outfile=None, verbose=0):
-    """Assembles an AC analysis and returns the analysis object.
+    """ Assembles an AC analysis and returns the analysis object.
 
     The analysis itself can be run with ``ahkab.run(...)``
     or queued with ``ahkab.queue(...)`` and then run subsequently.

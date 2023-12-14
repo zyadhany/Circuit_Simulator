@@ -41,7 +41,7 @@ from __future__ import (unicode_literals, absolute_import,
                         division, print_function)
 
 import sys
-import imp
+import importlib.util as imp
 
 import numpy as np
 
@@ -657,7 +657,9 @@ def import_custom_df_module(method, print_out):
     The df module or None if the module is not found.
     """
     try:
-        df = imp.load_module(imp.find_module(method.lower()))
+        spec = imp.util.find_spec(method.lower())
+        df = imp.util.module_from_spec(spec)
+        #df = imp.load_module(imp.find_module(method.lower()))
         if print_out:
             print("Custom df module "+method.lower()+" loaded.")
     except:
