@@ -149,7 +149,7 @@ class Circuit(list):
         set this to the netlist filename.
 
     """
-    def __init__(self, title, filename=None):
+    def __init__(self, title='none', filename=None):
         self.title = title
         self.filename = filename
         self.nodes_dict = {}  # {int_node:ext_node, int_node:ext_node}

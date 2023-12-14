@@ -6,7 +6,6 @@ from models.ahkab import new_ac, run, plotting
 from models.ahkab.circuit import Circuit
 import numpy as np
 
-
 cir = Circuit('Butterworth 1kHz band-pass filter')
 cir.add_vsource('V1', 'n1', cir.gnd, dc_value=0., ac_value=1.)
 cir.add_resistor('R1', 'n1', 'n2', 50.)
