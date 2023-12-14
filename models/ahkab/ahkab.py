@@ -390,10 +390,10 @@ def new_ac(start, stop, points, x0='op', sweep_type='LOG', outfile=None, verbose
     **Parameters:**
 
     start : float
-        the start angular frequency, :math:`\omega _{start}`.
+        the start angular frequency, :math:``.
 
     stop : float
-        the stop angular frequency, :math:`\omega _{stop}` (included in the
+        the stop angular frequency, :math:`` (included in the
         sweep).
 
     points : float

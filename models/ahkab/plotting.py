@@ -157,9 +157,8 @@ def save_figure(filename, fig=None):
     if fig is None:
         fig = pylab.gcf()
     fig.set_size_inches(*options.plotting_save_figsize)
-    pylab.savefig(filename, dpi=100, bbox_inches='tight',
-                  format=options.plotting_outtype, pad=0.1)
-    fig.set_size_inches(*options.plotting_display_figsize)
+    pylab.savefig(filename, dpi=100, bbox_inches='tight', format=options.plotting_outtype)
+
 
 def _data_abs_arg_pass(res, label):
     # extract abs / phase if needed or pass the data

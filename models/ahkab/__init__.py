@@ -31,7 +31,7 @@ import os
 
 try:
     import matplotlib
-    if os.system('python3 -c "import matplotlib.pyplot as plt;plt.figure()"'):
+    if os.system('python -c "import matplotlib.pyplot as plt;plt.figure()"'):
         # no display, use a display-less backend
         matplotlib.use('Agg')
 except ImportError:
