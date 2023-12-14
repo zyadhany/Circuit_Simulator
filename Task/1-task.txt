@@ -9,3 +9,10 @@ a - b.
 a * b.
 a % b.
 a / b (two ways, int and double)
+
+print(a + b)
+print(a * b)
+print(a - b)
+print(a % b)
+print(a / b)
+print(a // b)

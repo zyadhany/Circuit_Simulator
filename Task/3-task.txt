@@ -1,1 +1,6 @@
 Given a number n, determine if it is even or odd.
+
+if n % 2:
+    print("odd")
+else:
+    print("even")

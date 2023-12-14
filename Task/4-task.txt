@@ -2,3 +2,11 @@ determine status of temperature:
 - Less than or equal 16 is cold 
 - between 16 to 25 is good.
 - greater than or equal 25 is hot
+
+
+if n <= 16:
+    print("colde")
+elif n < 25:
+    print("good")
+else:
+    print("hot)
