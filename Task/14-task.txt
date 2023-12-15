@@ -1,9 +1,10 @@
 get the summation of all numbers between a to b.
 
-a , b = 3, 7
-summ = 0
+a=10 
+b=30
+sum=0
+for n in range(a,b):
+    sum+=n
 
-for i in range(a, b):
-    summ += i
-
-print(summ)
+print(sum)   
+ 
