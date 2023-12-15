@@ -3,10 +3,9 @@
 
 get the summation of all numbers between 1 to n.
 
-n = 10
-summ = 0
-
-for k in range(n):
-    summ += i
-
-print(summ)
+n=20
+sum=0
+for y in range(n):
+   sum+=y
+   
+print(sum)   
