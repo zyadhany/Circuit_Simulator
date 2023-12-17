@@ -1,0 +1,1 @@
+data/images\DCS1.jpg 1 4 8 108 104
