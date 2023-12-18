@@ -34,3 +34,9 @@ def resize(src, width=0, height=0):
         
     img = cv2.resize(src, (int(width), int(height)))
     return (img)
+
+
+def remove_part(img, y, x, h, w):
+    for i in range(x, x + w):
+        for j in range(y, y + h):
+            img[i][j] = 0

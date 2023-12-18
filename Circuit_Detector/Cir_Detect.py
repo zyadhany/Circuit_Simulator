@@ -21,7 +21,7 @@ def Detect_Circuit(img_file):
     comp = segment.getComponents(gray)
     
 
-    cv2.imshow("res", gray)
+    cv2.imshow("res", comp)
     cv2.waitKey(0)
 
     return (res)

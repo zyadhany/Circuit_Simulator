@@ -4,15 +4,29 @@ import numpy as np
 import editor
 from opjects import *
 
+my_opjects = [Resistance()]
 
-def getComponents(img):
+def getComponents(src):
     result = {}
-    faces = Resistance.casc.detectMultiScale(img, 1.2, 150)
-    print(faces)
+    img = src.copy()
 
-    return faces
     going = 1
     while going:
-        pass
+        going = 0
+        mx , index = -1, -1
+        opj = []
 
-    return (result)
+        for comp in my_opjects:
+            opj.extend(comp.find(img))
+
+        for i in range(len(opj)):
+            if opj[i][0][0] > mx:
+                mx, index = opj[i][0][0], i
+
+        if index >= 0:
+            going = 1
+            result[opj[index][1]] = opj[index][0]
+            x, y, w, h = opj[index][0][1:]
+            editor.remove_part(img, x, y, w, h)
+
+    return (img)
