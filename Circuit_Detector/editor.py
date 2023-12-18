@@ -2,8 +2,7 @@
 
 import cv2
 import numpy as np
-
-
+    
 
 def breakImg(src):
 
@@ -11,7 +10,7 @@ def breakImg(src):
 
     for row in range(len(img)):
         for col in range(len(img[row])):
-            img[row][col] = (img[row][col] < 128) * 255  # Modify pixel value based on condition
+            img[row][col] = (img[row][col] < 128) * 255
     return img
 
 
@@ -35,6 +34,10 @@ def resize(src, width=0, height=0):
     img = cv2.resize(src, (int(width), int(height)))
     return (img)
 
+def draw_rectangle(img, opject):
+    for op in opject:
+        x, y, w, h = op[0][1:]
+        cv2.rectangle(img, (x, y), (x + w, y + h), op[1].color, 5)
 
 def remove_part(img, y, x, h, w):
     for i in range(x, x + w):
