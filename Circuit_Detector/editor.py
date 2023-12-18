@@ -5,6 +5,16 @@ import numpy as np
 
 
 
+def breakImg(src):
+
+    img = src.copy()
+
+    for row in range(len(img)):
+        for col in range(len(img[row])):
+            img[row][col] = (img[row][col] < 128) * 255  # Modify pixel value based on condition
+    return img
+
+
 def resize(src, width=0, height=0):
     h, w = src.shape[:2]
     if not width and not height:

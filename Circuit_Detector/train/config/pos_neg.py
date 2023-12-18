@@ -1,16 +1,18 @@
 import os
 import cv2
 
-opj = 'res'
+opj = 'DCS'
 directory = 'data/images'
 files = os.listdir(directory)
 
 pos = open(f'data/{opj}pos.txt', 'w')
 neg = open(f'data/{opj}neg.txt', 'w')
+cnt = 0
 
 for file in files:
     path = f"{directory}/{file}"
-    if opj in file:
+    cnt += 1
+    if opj in file and not ((cnt // 10) % 2):
 
         img = cv2.imread(path, 0)
 
@@ -25,7 +27,7 @@ for file in files:
                     h2 = max(h2, i)
 
         pos.write(f'{path[5:]} 1 {w1} {h1} {w2 - w1} {h2 - h1}\n')
-    else:
+    elif not ((cnt // 10) % 10):
         neg.write(f'{path[5:]}\n')
 
 pos.close()

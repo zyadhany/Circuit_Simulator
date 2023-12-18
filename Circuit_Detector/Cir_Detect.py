@@ -4,15 +4,9 @@ import cv2
 import numpy as np
 
 import editor
+import segment
 
-def getline(src):
-
-    img = src.copy()
-
-    for row in range(len(img)):
-        for col in range(len(img[row])):
-            img[row][col] = (img[row][col] < 128) * 255  # Modify pixel value based on condition
-    return img
+# Time -> (BreakImg)
 
 def Detect_Circuit(img_file):
     res = {}
@@ -22,10 +16,11 @@ def Detect_Circuit(img_file):
     
     src = editor.resize(src, height=720)
     gray = cv2.cvtColor(src, cv2.COLOR_BGR2GRAY)
+    gray = editor.breakImg(gray)
 
-    gray = getline(gray)
+    comp = segment.getComponents(gray)
+    
 
-    cv2.imwrite("imm.jpg", img=gray)
     cv2.imshow("res", gray)
     cv2.waitKey(0)
 

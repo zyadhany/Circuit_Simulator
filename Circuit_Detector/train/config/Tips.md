@@ -11,11 +11,11 @@ C:/Users/Ben/learncodebygaming/opencv/build/x64/vc15/bin/opencv_annotation.exe -
 ..\..\..\..\opencv\build\x64\vc15\bin\opencv_annotation.exe --annotations=pos.txt --images=data/images
 ..\..\..\opencv\build\x64\vc15\bin\opencv_annotation.exe --annotations=pos.txt --images=data/images
 
-config\opencv_createsamples.exe -info data\respos.txt -w 24 -h 24 -num 1000 -vec data\respos.vec
+config\opencv_createsamples.exe -info data\comppos.txt -w 24 -h 24 -num 6000 -vec data\comppos.vec
 
-config\opencv_createsamples.exe -info data\respos.txt -w 40 -h 40 -num 1000 -vec data\respos.vec
 
 ..\..\..\..\opencv\build\x64\vc15\bin\opencv_traincascade.exe -data ..\cascade\resistor -vec respos.vec -bg resneg.txt -numPos 1 -numNeg 200 -numStages 10 -w 40 -h 40
 
-..\..\..\..\opencv\build\x64\vc15\bin\opencv_traincascade.exe -data ..\cascade\resistor -vec respos.vec -bg resneg.txt -numPos 200 -numNeg 200 -numStages 10 -w 24 -h 24
+config\opencv_createsamples.exe -info data\DCSpos.txt -w 24 -h 24 -num 1000 -vec data\DCSpos.vec
+..\..\..\..\opencv\build\x64\vc15\bin\opencv_traincascade.exe -data ..\cascade\battery -vec DCSpos.vec -bg DCSneg.txt -numPos 320 -numNeg 400 -numStages 10 -w 24 -h 24
 

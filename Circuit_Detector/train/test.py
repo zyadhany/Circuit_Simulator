@@ -5,7 +5,8 @@ import pyautogui
 
 screen_width, screen_height = pyautogui.size()
 
-face_cascade = cv2.CascadeClassifier('cascade/resistor/cascade.xml')
+bat = cv2.CascadeClassifier('cascade/battery/cascade.xml')
+res = cv2.CascadeClassifier('cascade/res.xml')
 
 
 def resize(src, width=0, height=0):
@@ -37,10 +38,19 @@ while True:
     frame = cv2.cvtColor(np.array(screen), cv2.COLOR_RGB2BGR)
     frame = frame[:-600]
 
+    # frame = cv2.imread('imm.jpg')
+
+
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    faces = face_cascade.detectMultiScale(gray, 1.3, 100)
+    faces = bat.detectMultiScale(gray, 1.06, 50)
     for (x, y, w, h) in faces:
         cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 5)
+        roi_gray = gray[y:y+w, x:x+w]
+        roi_color = frame[y:y+h, x:x+w]
+    faces = res.detectMultiScale(gray, 1.2, 150)
+    
+    for (x, y, w, h) in faces:
+        cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 5)
         roi_gray = gray[y:y+w, x:x+w]
         roi_color = frame[y:y+h, x:x+w]
 
