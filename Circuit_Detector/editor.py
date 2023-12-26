@@ -2,9 +2,11 @@
 
 import cv2
 import numpy as np
-    
+from src.LoodDetect import CDEC
 
 def breakImg(src):
+    CDEC.BreakImg(src, src.shape[0], src.shape[1])
+    return src
 
     img = src.copy()
 
@@ -40,6 +42,8 @@ def draw_rectangle(img, opject):
         cv2.rectangle(img, (x, y), (x + w, y + h), op[1].color, 5)
 
 def remove_part(img, y, x, h, w):
+    CDEC.RemovePart(img, img.shape[0], img.shape[1], x, y, w, h)
+    return
     for i in range(x, x + w):
         for j in range(y, y + h):
             img[i][j] = 0

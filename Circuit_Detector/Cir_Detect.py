@@ -15,17 +15,18 @@ def Detect_Circuit(img_file):
     res = {}
 
     src = cv2.imread(img_file)
-
-    src = editor.resize(src, height=720)
+    src = editor.resize(src, height=360)
 
     gray = cv2.cvtColor(src, cv2.COLOR_BGR2GRAY)
-
-    gray = editor.breakImg(gray)
+    editor.breakImg(gray)
 
     skel, comp = segment.getComponents(gray)
 
     nodes, node_map = segment.simplfySkel(skel)
 
+    #cv2.imshow("res", skel)
+    #cv2.waitKey(0) 
+    return
     circuit = segment.CreatCircuit(skel, nodes, node_map, comp)
 
     for op in circuit:
@@ -40,4 +41,4 @@ def Detect_Circuit(img_file):
 
 
 if __name__ == "__main__":
-    Detect_Circuit("img2.jpg")
+    Detect_Circuit("img1.jpg")

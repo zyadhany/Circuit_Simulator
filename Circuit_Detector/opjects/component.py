@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-
+from src.LoodDetect import CDEC
 
 class Component():
 
@@ -56,8 +56,15 @@ class Component():
         return (n)
     
     def compSize(self, img, x, y, w, h):
-        w1, w2, h1, h2 = 2400, -1, 2400, -1
 
+        arr = CDEC.CompSize(img, img.shape[0], img.shape[1], y, x, h, w)
+        res = [arr[i] for i in range(4)]
+        CDEC.free_array(arr)
+        if res[1] == -1:
+            return [0, 0]
+        return res
+
+        w1, w2, h1, h2 = 2400, -1, 2400, -1
         for i in range(x, x + w):
             for j in range(y, y + h):
                 if img[j][i]:

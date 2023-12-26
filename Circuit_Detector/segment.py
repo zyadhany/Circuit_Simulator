@@ -4,6 +4,7 @@ import numpy as np
 import editor
 from opjects import *
 import sys
+from src.LoodDetect import CDEC
 
 my_opjects = [Resistance(), DCS()]
 
