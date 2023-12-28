@@ -33,7 +33,6 @@ class Component():
         res = []
         opj = self.casc.detectMultiScale2(img, scaleFactor=self.scale_factor,
                                           minNeighbors=self.min_nig)
-        
         n = self.opjlen(opj)
 
         for i in range(n):
@@ -44,6 +43,7 @@ class Component():
                 (wc >= self.com_w and hc >= self.com_h) or (wc >= self.com_h and hc >= self.com_w)):
                 #print(score, self.min_score)
                 res.append(([score, yc, xc, hc, wc],self.__class__))
+
         return res
     
     def detect(self, img):

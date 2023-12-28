@@ -5,8 +5,9 @@ import editor
 from opjects import *
 import sys
 from src.LoodDetect import CDEC
+import time
 
-my_opjects = [Resistance(), DCS()]
+my_opjects = [DCS(), Resistance()]
 
 boxwire = 10
 wire_lenght = 200
@@ -52,8 +53,6 @@ def CreatCircuit(gray, nodes, node_map, comp):
     
     return circuit
 
-
-
 def DfsCirc(skel, vis, n, m, l, r, val):
     if l < 0 or l >= n or r < 0 or r >= m:
         return 0
@@ -68,6 +67,23 @@ def DfsCirc(skel, vis, n, m, l, r, val):
     return (len)
 
 def simplfySkel(skel):
+    n, m = skel.shape
+    vis = np.zeros((n, m), dtype=int) 
+    result = {}
+
+    dic = CDEC.SimplfySkel(skel, vis, n, m)
+
+    for i in range(1, dic[0].key):
+        result[dic[i].key] = dic[i].val
+    
+    for i in range(n):
+        for j in range(m):
+            if vis[i][j] not in result.keys():
+                skel[i][j] = 0
+            else:
+                skel[i][j] = result[vis[i][j]] *40
+    CDEC.free_dict(dic)
+    return ([result, vis])
     sys.setrecursionlimit(1000000)
     n, m = skel.shape
     vis = np.zeros((n, m), dtype=int)
@@ -85,7 +101,6 @@ def simplfySkel(skel):
    
     for i in range(n):
         for j in range(m):
-
             if dist[vis[i][j]] >= wire_lenght:
                 if vis[i][j] not in result:
                     result[vis[i][j]] = node
@@ -115,6 +130,6 @@ def getComponents(src):
             going = 1
             result.append((opj[index][0], opj[index][1]))
             x, y, w, h = opj[index][0][1:]
-            editor.remove_part(img, x + 1, y + 1, w - 1, h - 1)
+            editor.remove_part(img, x + 1, y + 1, w - 2, h - 2)
 
     return [img, result]

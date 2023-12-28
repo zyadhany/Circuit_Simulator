@@ -8,13 +8,10 @@ def breakImg(src):
     CDEC.BreakImg(src, src.shape[0], src.shape[1])
     return src
 
-    img = src.copy()
-
-    for row in range(len(img)):
-        for col in range(len(img[row])):
-            img[row][col] = (img[row][col] < 128) * 255
-    return img
-
+    for row in range(len(src)):
+        for col in range(len(src[row])):
+            src[row][col] = (src[row][col] < 128) * 255
+    return src
 
 def resize(src, width=0, height=0):
     h, w = src.shape[:2]
