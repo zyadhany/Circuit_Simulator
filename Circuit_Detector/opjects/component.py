@@ -25,9 +25,8 @@ class Component():
 
     color = (0, 0, 255)
 
-    def init(self):
+    def __init__(self):
         pass
-    
 
     def find(self, img):
         res = []
@@ -63,18 +62,6 @@ class Component():
         if res[1] == -1:
             return [0, 0]
         return res
-
-        w1, w2, h1, h2 = 2400, -1, 2400, -1
-        for i in range(x, x + w):
-            for j in range(y, y + h):
-                if img[j][i]:
-                    w1 = min(w1, j)
-                    w2 = max(w2, j)
-                    h1 = min(h1, i)
-                    h2 = max(h2, i)
-        if w2 == -1:
-            return [0, 0]
-        return [w1, h1, w2 - w1, h2 - h1]
     
     def __str__(self) -> str:
         return f'{self.com_type}{self.name} {self.n1} {self.n2} {self.value}'

@@ -5,4 +5,8 @@
 -   make better xml
 
 ## Time
--   breakImg
+-   optmize looping and opration
+-   Work in Cpp sheard library
+
+## Detection
+-   make 2 opjects of same box be the same opject

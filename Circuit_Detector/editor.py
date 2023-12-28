@@ -6,12 +6,6 @@ from src.LoodDetect import CDEC
 
 def breakImg(src):
     CDEC.BreakImg(src, src.shape[0], src.shape[1])
-    return src
-
-    for row in range(len(src)):
-        for col in range(len(src[row])):
-            src[row][col] = (src[row][col] < 128) * 255
-    return src
 
 def resize(src, width=0, height=0):
     h, w = src.shape[:2]
@@ -29,7 +23,7 @@ def resize(src, width=0, height=0):
         width = w * r2
     if not height:
         height = h * r1
-        
+    
     img = cv2.resize(src, (int(width), int(height)))
     return (img)
 
@@ -40,7 +34,3 @@ def draw_rectangle(img, opject):
 
 def remove_part(img, y, x, h, w):
     CDEC.RemovePart(img, img.shape[0], img.shape[1], x, y, w, h)
-    return
-    for i in range(x, x + w):
-        for j in range(y, y + h):
-            img[i][j] = 0

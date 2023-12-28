@@ -3,6 +3,12 @@ import cv2
 from Cir_Detect import Detect_Circuit
 import time
 
+def init():
+    img = cv2.imread('img1.jpg')
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    casc = cv2.CascadeClassifier('set/res.xml')
+    opj = casc.detectMultiScale2(img,scaleFactor=1.05, minNeighbors=60)
+
 def show_camera():
     # Open the default camera (usually the webcam)
     cap = cv2.VideoCapture(0)
@@ -43,19 +49,17 @@ def show_camera():
     cap.release()
     cv2.destroyAllWindows()
 
-# Call the function to show the camera feed
+def show_image():
+    frame = cv2.imread('img1.jpg')
+    frame = Detect_Circuit(frame)[0]
+    #cv2.imshow('Video', frame)
+    cv2.waitKey(0)
 
+init()
+start = time.time()
 
-show_camera()
+#show_camera()
+show_image()
 
-frame = cv2.imread('img1.jpg')
-frame = Detect_Circuit(frame)[0]
-
-start_time = time.time()
-end_time = time.time()
-elapsed_time_seconds = end_time - start_time
-elapsed_time_milliseconds = elapsed_time_seconds * 1000
-print("Elapsed time in milliseconds:", elapsed_time_milliseconds)
-cv2.imshow('Video', frame)
-cv2.waitKey(0)
-
+end = time.time()
+print(end - start)

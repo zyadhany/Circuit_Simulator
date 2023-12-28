@@ -5,30 +5,34 @@ import numpy as np
 import editor
 import segment
 
-# Time -> (BreakImg)
 
 def Detect_Circuit(src):
-    res = {}
-    src = editor.resize(src, height=360)
+	res = {}
 
-    gray = cv2.cvtColor(src, cv2.COLOR_BGR2GRAY)
-    editor.breakImg(gray)
+	src = editor.resize(src, height=1080)
+	gray = cv2.cvtColor(src, cv2.COLOR_BGR2GRAY)
+	editor.breakImg(gray)
 
-    skel, comp = segment.getComponents(gray)
+	skel, comp = segment.getComponents(gray) #869
 
-    nodes, node_map = segment.simplfySkel(skel)
+	import time
+	start = time.time()
+	nodes, node_map = segment.simplfySkel(skel) #52
+	end = time.time()
+	print("Time Taken: ", end - start)
+	cv2.imshow("ime", skel)
+	circuit = segment.CreatCircuit(skel, nodes, node_map, comp)
 
-    circuit = segment.CreatCircuit(skel, nodes, node_map, comp)
+	editor.draw_rectangle(src, comp)
 
-    editor.draw_rectangle(src, comp)
-
-    return ([src, circuit])
+	return ([src, circuit])
 
 
 if __name__ == "__main__":
-    img = cv2.imread("img1.jpg")
-    res, cir = Detect_Circuit(img)
-    for op in cir:
-        print(op)    
-    cv2.imshow('res', res)
-    cv2.waitKey(0)
+	img = cv2.imread("img1.jpg")
+	res, cir = Detect_Circuit(img)
+
+	for op in cir:
+		print(op)    
+	cv2.imshow('res', res)
+	cv2.waitKey(0)

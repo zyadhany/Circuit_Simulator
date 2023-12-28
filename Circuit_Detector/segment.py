@@ -7,7 +7,7 @@ import sys
 from src.LoodDetect import CDEC
 import time
 
-my_opjects = [DCS(), Resistance()]
+my_opjects = [Resistance(), DCS()]
 
 boxwire = 10
 wire_lenght = 200
@@ -38,75 +38,29 @@ def getnode(gray, nodes, node_map, opj):
     return res
 
 def CreatCircuit(gray, nodes, node_map, comp):
-
     circuit = []
 
     for opj_itration in comp:
-
         opj = opj_itration[1]()
         opj.name = opj_itration[1].name
         opj_itration[1].name += 1
         opj.n1, opj.n2 = getnode(gray, nodes, node_map, opj_itration[0][1:])
-        
-
-        circuit.append(opj)
     
+        circuit.append(opj)
     return circuit
-
-def DfsCirc(skel, vis, n, m, l, r, val):
-    if l < 0 or l >= n or r < 0 or r >= m:
-        return 0
-    if vis[l][r] != 0 or skel[l][r] == 0:
-        return 0
-    len = 1
-    vis[l][r] = val    
-
-    for i in range(l - boxwire, l + boxwire + 1):
-        for j in range(r - boxwire, r + boxwire + 1):
-            len += DfsCirc(skel, vis, n, m, i, j, val)
-    return (len)
 
 def simplfySkel(skel):
     n, m = skel.shape
     vis = np.zeros((n, m), dtype=int) 
     result = {}
 
+    import time
     dic = CDEC.SimplfySkel(skel, vis, n, m)
 
     for i in range(1, dic[0].key):
         result[dic[i].key] = dic[i].val
-    
-    for i in range(n):
-        for j in range(m):
-            if vis[i][j] not in result.keys():
-                skel[i][j] = 0
-            else:
-                skel[i][j] = result[vis[i][j]] *40
+
     CDEC.free_dict(dic)
-    return ([result, vis])
-    sys.setrecursionlimit(1000000)
-    n, m = skel.shape
-    vis = np.zeros((n, m), dtype=int)
-    dist = {0:0}
-    result = {}
-    cnt = 1
-    node = 1
-
-
-    for i in range(n):
-        for j in range(m):
-            cnt += 1
-            len = DfsCirc(skel, vis, n, m, i, j, cnt)
-            dist[cnt] = len
-   
-    for i in range(n):
-        for j in range(m):
-            if dist[vis[i][j]] >= wire_lenght:
-                if vis[i][j] not in result:
-                    result[vis[i][j]] = node
-                    node += 1
-            else :
-                skel[i][j] = 0
     return ([result, vis])
 
 def getComponents(src):
