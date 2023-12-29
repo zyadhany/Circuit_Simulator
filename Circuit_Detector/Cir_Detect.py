@@ -9,8 +9,8 @@ import time
 
 def Detect_Circuit(src):
 
-	# edit imagae to fi reconizaton
-	src = editor.resize(src, height=720)
+	# edit imagae to for reconizaton
+	src = editor.resize(src, height=560)
 	gray = cv2.cvtColor(src, cv2.COLOR_BGR2GRAY)
 	editor.breakImg(gray)
 
@@ -25,11 +25,11 @@ def Detect_Circuit(src):
 
 if __name__ == "__main__":
 	for i in range(1,6):
-		img = cv2.imread(f"img{i}.jpg")
+		img = cv2.imread(f"img_test/img{i}.jpg")
 		start = time.time()
 		res, cir = Detect_Circuit(img)
 		end = time.time()
-		print("Time Taken: ", end - start)
+		print("Time Taken: ", (end - start) * 1000)
 
 		for op in cir:
 			print(op)    

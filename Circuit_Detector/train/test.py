@@ -1,20 +1,17 @@
 #!/usr/bin/env python3
 import cv2
-import pyautogui
+import PIL
 import numpy as np
 
 face = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 
+cap = cv2.VideoCapture("vid1.mp4")
 
 while True:
-    frame = pyautogui.screenshot()
-    frame = np.array(frame)
-    w = frame.shape[0]//2
-    frame = frame[:w]
-   
-    
-    gray = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)
-    faces = face.detectMultiScale(gray, 1.05, 50)
+
+    ret, frame = cap.read()
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    faces = face.detectMultiScale(gray, 1.3, 60)
 
     for (x, y, w, h) in faces:
         cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 5)

@@ -1,10 +1,10 @@
 import cv2
 import os
 
-opj = 'res'
-rotate = 2
+opj = 'DCS'
+rotate = 4
 dist = 'data/images'
-directory = 'data/SolvaDataset_200_v3/resistor'
+directory = 'data/SolvaDataset_200_v3/dc_volt_src_2'
 files = os.listdir(directory)
 
 def getline(img):

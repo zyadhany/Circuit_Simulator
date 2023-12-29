@@ -4,7 +4,7 @@ from Cir_Detect import Detect_Circuit
 import time
 
 def init():
-    img = cv2.imread('img1.jpg')
+    img = cv2.imread('img_test/img1.jpg')
     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     casc = cv2.CascadeClassifier('set/res.xml')
     opj = casc.detectMultiScale2(img,scaleFactor=1.05, minNeighbors=60)
