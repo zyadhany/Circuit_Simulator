@@ -4,18 +4,18 @@ import cv2
 import numpy as np
 import editor
 import segment
+import time
 
 
 def Detect_Circuit(src):
-	res = {}
+
+	# edit imagae to fi reconizaton
 	src = editor.resize(src, height=720)
 	gray = cv2.cvtColor(src, cv2.COLOR_BGR2GRAY)
 	editor.breakImg(gray)
 
-	#return ([gray, 1]) 
 	skel, comp = segment.getComponents(gray) #869
 	nodes, node_map = segment.simplfySkel(skel) #52
-	#cv2.imshow("ime", skel)
 	circuit = segment.CreatCircuit(skel, nodes, node_map, comp)
 
 	editor.draw_rectangle(src, comp)
@@ -24,11 +24,14 @@ def Detect_Circuit(src):
 
 
 if __name__ == "__main__":
-	img = cv2.imread("img5.jpg")
-	res, cir = Detect_Circuit(img)
-	res, cir = Detect_Circuit(img)
+	for i in range(1,6):
+		img = cv2.imread(f"img{i}.jpg")
+		start = time.time()
+		res, cir = Detect_Circuit(img)
+		end = time.time()
+		print("Time Taken: ", end - start)
 
-	for op in cir:
-		print(op)    
-	cv2.imshow('res', res)
-	cv2.waitKey(0)
+		for op in cir:
+			print(op)    
+		cv2.imshow('res', res)
+		cv2.waitKey(0)

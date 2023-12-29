@@ -11,6 +11,7 @@ my_opjects = [Resistance(), DCS()]
 
 boxwire = 10
 wire_lenght = 200
+MAXDIFF = 10
 
 def getnode(gray, nodes, node_map, opj):
 	y, x, h, w = opj
@@ -54,40 +55,57 @@ def simplfySkel(skel):
 	vis = np.zeros((n, m), dtype=int) 
 	result = {}
 
-	import time
-	start = time.time()
 	dic = CDEC.SimplfySkel(skel, vis, n, m)
-	end = time.time()
-	print("Time: ", end - start)
 	
-
 	for i in range(1, dic[0].key):
 		result[dic[i].key] = dic[i].val
 
 	CDEC.free_dict(dic)
 	return ([result, vis])
 
+def IsIntersection(comp, op):
+
+	lw = max(comp[0][1], op[0][1])
+	rw = min(comp[0][1] + comp[0][3], op[0][1] + op[0][3])
+	lh = max(comp[0][2], op[0][2])
+	rh = min(comp[0][2] + comp[0][4], op[0][2] + op[0][4])
+
+	if lw <= rw + MAXDIFF and lh <= rh + MAXDIFF:
+		op[0][1] = min(comp[0][1], op[0][1])
+		op[0][3] = max(comp[0][1] + comp[0][3], op[0][1] + op[0][3]) - op[0][1]
+		op[0][2] = min(comp[0][2], op[0][2])
+		op[0][4] = max(comp[0][2] + comp[0][4], op[0][2] + op[0][4]) - op[0][2]
+		
+		if comp[0][0] >= op[0][0]:
+			op[0][0] = comp[0][0]
+			op = (op[0], comp[1])
+		return (op)
+	
+	return (0)
+
+def AddComponent(components, op):
+
+	for comp in components:
+		iscomp = IsIntersection(comp, op)
+		if iscomp:
+			op = iscomp
+			components.remove(comp)
+	components.append((op[0], op[1]))
+
 def getComponents(src):
-	result = []
-	img = src.copy()
+	skel = src.copy()
+	components = []
+	opj = []
 
-	going = 1
-	while going:
-		going = 0
-		mx , index = -1, -1
-		opj = []
+	for comp in my_opjects:
+		opj.extend(comp.detect(skel))
+	opj.sort(reverse=True)
 
-		for comp in my_opjects:
-			opj.extend(comp.detect(img))
+	for op in opj:
+		AddComponent(components, op)
 
-		for i in range(len(opj)):
-			if opj[i][0][0] > mx:
-				mx, index = opj[i][0][0], i
+	for comp in components:
+		x, y, w, h = comp[0][1:]
+		editor.remove_part(skel, x + 1, y + 1, w - 2, h - 2)
 
-		if index >= 0:
-			going = 1
-			result.append((opj[index][0], opj[index][1]))
-			x, y, w, h = opj[index][0][1:]
-			editor.remove_part(img, x + 1, y + 1, w - 2, h - 2)
-
-	return [img, result]
+	return [skel, components]
