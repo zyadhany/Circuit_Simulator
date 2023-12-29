@@ -3,7 +3,7 @@
 void BreakImg(unsigned char *src, int rows, int cols) {
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < cols; ++j) {
-            src[i * cols + j] = (src[i * cols + j] < 128) ? 255 : 0;
+            src[i * cols + j] = (src[i * cols + j] < GRAY_SCALE) ? 255 : 0;
         }
     }
 }

@@ -21,13 +21,14 @@ def show_camera():
         # Capture frame-by-frame
         ret, frame = cap.read()
 
-        # If the frame is read correctly, ret is True
-        if not ret:
-            print("Can't receive frame (stream end?). Exiting...")
-            break
-
+        start = time.time()
+        
         frame = Detect_Circuit(frame)[0]
+        
+        end = time.time()
         cv2.imshow('Video', frame)
+        print("Time Taken: ", end - start)
+
         if cv2.waitKey(1) == ord('q'):
             break
         continue
@@ -58,7 +59,7 @@ def show_image():
 init()
 start = time.time()
 
-#show_camera()
+show_camera()
 show_image()
 
 end = time.time()

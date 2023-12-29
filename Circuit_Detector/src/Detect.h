@@ -9,6 +9,8 @@
 #define MIN(a, b) (((a) < (b)) ? (a) : (b))
 #define MAX(a, b) (((a) > (b)) ? (a) : (b))
 
+#define GRAY_SCALE 110
+
 #define boxwire 8
 #define wire_lenght 200
 #define max_lenght 10000

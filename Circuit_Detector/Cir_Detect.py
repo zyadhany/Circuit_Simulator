@@ -8,19 +8,14 @@ import segment
 
 def Detect_Circuit(src):
 	res = {}
-
-	src = editor.resize(src, height=1080)
+	src = editor.resize(src, height=720)
 	gray = cv2.cvtColor(src, cv2.COLOR_BGR2GRAY)
 	editor.breakImg(gray)
 
+	#return ([gray, 1]) 
 	skel, comp = segment.getComponents(gray) #869
-
-	import time
-	start = time.time()
 	nodes, node_map = segment.simplfySkel(skel) #52
-	end = time.time()
-	print("Time Taken: ", end - start)
-	cv2.imshow("ime", skel)
+	#cv2.imshow("ime", skel)
 	circuit = segment.CreatCircuit(skel, nodes, node_map, comp)
 
 	editor.draw_rectangle(src, comp)
@@ -29,7 +24,8 @@ def Detect_Circuit(src):
 
 
 if __name__ == "__main__":
-	img = cv2.imread("img1.jpg")
+	img = cv2.imread("img5.jpg")
+	res, cir = Detect_Circuit(img)
 	res, cir = Detect_Circuit(img)
 
 	for op in cir:

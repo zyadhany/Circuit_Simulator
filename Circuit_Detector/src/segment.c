@@ -60,7 +60,6 @@ Dict *SimplfySkel(unsigned char *img, int *vis, int rows,int cols){
             if (vis[i * cols + j]) continue;
             len = CirDfs(img, vis, rows, cols, i, j, cnt, 1);
             if (len >= wire_lenght){
-                printf("%d\n", len);
                 node_size++;
                 res = (Dict*)realloc(res, node_size * sizeof(Dict));
                 res[0].key = node_size;
