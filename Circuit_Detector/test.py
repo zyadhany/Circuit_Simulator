@@ -32,7 +32,7 @@ def show_camera():
 		ret, frame = cap.read()
 
 		start = time.time()  
-		frame = Detect_Circuit(frame)[0] 
+		frame = Detect_Circuit(frame)['src']
 		end = time.time()
 		print("Time Taken: ", end - start)
 
@@ -93,8 +93,8 @@ def show_screen():
 init()
 start = time.time()
 
-#show_camera()
+show_camera()
 #show_image()
-show_screen()
+#show_screen()
 end = time.time()
 print(end - start)

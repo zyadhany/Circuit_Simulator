@@ -8,47 +8,43 @@ import editor
 import segment
 
 def LiveDetect():
+	key = -1
 	while True:
 		screenshot = pyautogui.screenshot()
 		frame = cv2.cvtColor(np.array(screenshot), cv2.COLOR_RGB2BGR)
-
+		w = frame.shape[1] // 3
+		frame = frame[:,w:]
 		res = Detect_Circuit(frame)
 
 		frame = res['src']
 		cv2.imshow('Screen', frame)
-
 		key = cv2.waitKey(1)
 
 		if key == ord('q'):
-			for op in res['circuit']:
-				print(op)
 			break
-		elif key != -1:
-			break
+	
+	for op in res['circuit']:
+		print(op)
+	cv2.waitKey(0)
 	cv2.destroyAllWindows()
 
 def Detect_Circuit(src):
 	result = {}
 
 	# edit imagae to for reconizaton
-	src = editor.resize(src, height=560)
+	src = editor.resize(src, width=720)
 	gray = cv2.cvtColor(src, cv2.COLOR_BGR2GRAY)
 	editor.breakImg(gray)
-
-	skel, comp = segment.getComponents(gray) #70
-
-	nodes, node_map = segment.simplfySkel(skel) #52
-
+	
+	skel, comp = segment.getComponents(gray) #35
+	nodes, node_map = segment.simplfySkel(skel) #33
 	circuit = segment.CreatCircuit(skel, nodes, node_map, comp)
 
 	editor.draw_rectangle(src, comp)
-	gray = cv2.cvtColor(gray, cv2.COLOR_GRAY2BGR)
-	editor.draw_rectangle(gray, comp)
 
-	result['gray'] = skel
+	result['gray'] = gray
 	result['src'] = src
 	result['circuit'] = circuit
-
 	return (result)
 
 

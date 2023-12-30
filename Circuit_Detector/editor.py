@@ -29,9 +29,9 @@ def resize(src, width=0, height=0):
 
 def draw_rectangle(img, opject):
     for op in opject:
-        x, y, w, h = op[0][1:]
-        color = op[1].color
-        lable = op[1].com_type
+        x, y, w, h = op.shape
+        color = op.color
+        lable = f'{op.com_type}{op.index}'
         fontscale = 0.6
         cv2.rectangle(img, (x, y), (x + w, y + h), color, 5)
         cv2.putText(img, lable, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 1, color, 2, cv2.LINE_AA)

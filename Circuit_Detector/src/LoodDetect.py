@@ -2,8 +2,10 @@
 
 import ctypes
 import numpy as np
+import os
 
-CDEC = ctypes.CDLL("./src/Detect.dll")
+current_dir = os.path.dirname(os.path.abspath(__file__))
+CDEC = ctypes.CDLL(os.path.join(current_dir, 'Detect.dll'))
 
 #edit
 CDEC.BreakImg.argtypes = [np.ctypeslib.ndpointer(dtype=np.uint8, ndim=2, flags='C_CONTIGUOUS'),

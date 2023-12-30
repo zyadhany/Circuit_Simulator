@@ -7,52 +7,49 @@ import sys
 from src.LoodDetect import CDEC
 import time
 
-#my_opjects = [Resistance(), DCS()]
-my_opjects = [DCS()]
+my_opjects = [Resistance(), DCS()]
+#my_opjects = [DCS()]
 
 boxwire = 10
 wire_lenght = 200
 MAXDIFF = 10
 
+def FixNoding(nodes, circuit):
+	cnt = 1
+	tmp = {}
+	rem_dict = []
 
-def getnode(gray, nodes, node_map, opj):
-	y, x, h, w = opj
-	res = [-1, -1]
-	at = 0
+	for key, val in nodes.items():
+		keep = 0
+		for comp in circuit:
+			if val == comp.n1 or val == comp.n2:
+				tmp[val], nodes[key] = cnt, cnt
+				cnt += 1
+				keep = 1
+				break
+		if not keep:
+			rem_dict.append(key)
+	for key in rem_dict:
+		del nodes[key]
+	for comp in circuit:
+		if comp.n1 in tmp:
+			comp.n1 = tmp[comp.n1]
+		if comp.n2 in tmp:
+			comp.n2 = tmp[comp.n2]
 
-	for i in range(x, x + w + 1):
-		if node_map[i][y] in nodes and gray[i][y]:
-			if nodes[node_map[i][y]] not in res:
-				res[at % 2] = nodes[node_map[i][y]]
-				at += 1
-		if node_map[i][y + h] in nodes and gray[i][y + h]:
-			if nodes[node_map[i][y + h]] not in res:
-				res[at % 2] = nodes[node_map[i][y + h]]
-				at += 1
-	for j in range(y, y + h + 1):
-		if node_map[x][j] in nodes and gray[x][j]:
-			if nodes[node_map[x][j]] not in res:
-				res[at % 2] = nodes[node_map[x][j]]
-				at += 1
-		if node_map[x + w][j] in nodes and gray[x + w][j]:
-			if nodes[node_map[x + w][j]] not in res:
-				res[at % 2] = nodes[node_map[x + w][j]]
-				at += 1
-	return res
-
-def CreatCircuit(gray, nodes, node_map, comp):
+def CreatCircuit(gray, nodes, node_map, components):
 	circuit = []
 
 	for opj in my_opjects:
-		opj.index = 1
+		opj.__class__.index = 1
 
-	for opj_itration in comp:
-		opj = opj_itration[1]()
-		opj.index = opj_itration[1].index
-		opj_itration[1].index += 1
-		opj.n1, opj.n2 = getnode(gray, nodes, node_map, opj_itration[0][1:])
-	
+	for opj in components:
+		opj.index = opj.__class__.index
+		opj.__class__.index += 1
+		opj.getNode(gray, nodes, node_map)
 		circuit.append(opj)
+
+	FixNoding(nodes, circuit)
 	return circuit
 
 def simplfySkel(skel):
@@ -70,20 +67,23 @@ def simplfySkel(skel):
 
 def IsIntersection(comp, op):
 
-	lw = max(comp[0][1], op[0][1])
-	rw = min(comp[0][1] + comp[0][3], op[0][1] + op[0][3])
-	lh = max(comp[0][2], op[0][2])
-	rh = min(comp[0][2] + comp[0][4], op[0][2] + op[0][4])
+	s1 = comp.shape
+	s2 = op.shape
+
+	lw = max(s1[0], s2[0])
+	rw = min(s1[0] + s1[2], s2[0] + s2[2])
+	lh = max(s1[1], s2[1])
+	rh = min(s1[1] + s1[3], s2[1] + s2[3])
 
 	if lw <= rw + MAXDIFF and lh <= rh + MAXDIFF:
-		op[0][1] = min(comp[0][1], op[0][1])
-		op[0][3] = max(comp[0][1] + comp[0][3], op[0][1] + op[0][3]) - op[0][1]
-		op[0][2] = min(comp[0][2], op[0][2])
-		op[0][4] = max(comp[0][2] + comp[0][4], op[0][2] + op[0][4]) - op[0][2]
+		s2[0] = min(s1[0], s2[0])
+		s2[2] = max(s1[0] + s1[2], s2[0] + s2[2]) - s2[0]
+		s2[1] = min(s1[1], s2[1])
+		s2[3] = max(s1[1] + s1[3], s2[1] + s2[3]) - s2[1]
 		
-		if comp[0][0] >= op[0][0]:
-			op[0][0] = comp[0][0]
-			op = (op[0], comp[1])
+		if comp.score >= op.score:
+			op = comp
+			op.shape = s2
 		return (op)
 	
 	return (0)
@@ -99,7 +99,7 @@ def AddComponent(components, op):
 				going = 1
 				op = iscomp
 				components.remove(comp)
-	components.append((op[0], op[1]))
+	components.append(op)
 
 def getComponents(src):
 	skel = src.copy()
@@ -108,13 +108,10 @@ def getComponents(src):
 
 	for comp in my_opjects:
 		opj.extend(comp.detect(skel))
-	opj.sort(reverse=True)
-
 	for op in opj:
 		AddComponent(components, op)
-
 	for comp in components:
-		x, y, w, h = comp[0][1:]
+		x, y, w, h = comp.shape
 		editor.remove_part(skel, x + 1, y + 1, w - 2, h - 2)
 
 	return [skel, components]
