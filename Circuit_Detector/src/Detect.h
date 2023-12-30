@@ -9,10 +9,10 @@
 #define MIN(a, b) (((a) < (b)) ? (a) : (b))
 #define MAX(a, b) (((a) > (b)) ? (a) : (b))
 
-#define GRAY_SCALE 110
+#define GRAY_SCALE 70
 
-#define boxwire 8
-#define wire_lenght 200
+#define boxwire 1
+#define wire_lenght 100
 #define max_lenght 10000
 #define MAX_IMG_SIZE 10000
 
@@ -29,6 +29,9 @@ void RemovePart(unsigned char *src, int rows, int cols, int x, int y, int w, int
 int *CompSize(unsigned char *img, int rows, int cols, int x, int y, int w, int h);
 int CirDfs(unsigned char *skel, int *vis, int rows, int cols, int l, int r, int val, int deep);
 Dict *SimplfySkel(unsigned char *img, int *vis, int rows,int cols);
+
+/* components */
+int CheckDc(unsigned char *img, int rows, int cols);
 
 /* Array */
 void free_array(int* arr);

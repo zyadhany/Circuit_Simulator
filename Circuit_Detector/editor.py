@@ -30,7 +30,11 @@ def resize(src, width=0, height=0):
 def draw_rectangle(img, opject):
     for op in opject:
         x, y, w, h = op[0][1:]
-        cv2.rectangle(img, (x, y), (x + w, y + h), op[1].color, 5)
+        color = op[1].color
+        lable = op[1].com_type
+        fontscale = 0.6
+        cv2.rectangle(img, (x, y), (x + w, y + h), color, 5)
+        cv2.putText(img, lable, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 1, color, 2, cv2.LINE_AA)
 
 def remove_part(img, y, x, h, w):
     CDEC.RemovePart(img, img.shape[0], img.shape[1], x, y, w, h)

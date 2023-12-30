@@ -3,20 +3,19 @@ import numpy as np
 from src.LoodDetect import CDEC
 
 class Component():
+    casc = cv2.CascadeClassifier('set/res.xml')
 
     com_type = 'comp'
-
-    name = 1
-
-    casc = cv2.CascadeClassifier('set/res.xml')
+    name = 'component'
+    index = 1
 
     scale_factor = 1.05
     min_nig = 60
+    min_size = (10,10)
+    max_size = (120,120)
 
     min_score = 500
-
-    com_w = 40
-    com_h = 20
+    score_factor = 1
 
     n1 = 0
     n2 = 0
@@ -31,17 +30,16 @@ class Component():
     def find(self, img):
         res = []
         opj = self.casc.detectMultiScale2(img, scaleFactor=self.scale_factor,
-                                          minNeighbors=self.min_nig)
+                                          minNeighbors=self.min_nig,
+                                          minSize=self.min_size, maxSize=self.max_size)
         n = self.opjlen(opj)
 
         for i in range(n):
             score = opj[1][i]
             x, y, w, h = opj[0][i]
             xc, yc, wc, hc = self.compSize(img, x, y, w, h)
-            if score >= self.min_score and(
-                (wc >= self.com_w and hc >= self.com_h) or (wc >= self.com_h and hc >= self.com_w)):
-                #print(score, self.min_score)
-                res.append(([score, yc, xc, hc, wc],self.__class__))
+            if score >= self.min_score:
+                res.append(([score * self.score_factor, yc, xc, hc, wc],self.__class__))
 
         return res
     
@@ -55,7 +53,6 @@ class Component():
         return (n)
     
     def compSize(self, img, x, y, w, h):
-
         arr = CDEC.CompSize(img, img.shape[0], img.shape[1], y, x, h, w)
         res = [arr[i] for i in range(4)]
         CDEC.free_array(arr)
@@ -64,4 +61,4 @@ class Component():
         return res
     
     def __str__(self) -> str:
-        return f'{self.com_type}{self.name} {self.n1} {self.n2} {self.value}'
+        return f'{self.com_type}{self.index} {self.n1} {self.n2} {self.value}'

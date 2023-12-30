@@ -2,6 +2,7 @@
     "files.associations": {
         "detect.h": "c",
         "math.h": "c",
-        "windows.h": "c"
+        "windows.h": "c",
+        "stdlib.h": "c"
     }
 }

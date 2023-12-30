@@ -45,7 +45,7 @@ int CirDfs(unsigned char *skel, int *vis, int rows, int cols, int l, int r, int 
 }
 
 Dict *SimplfySkel(unsigned char *img, int *vis, int rows,int cols){
-    int node_size, node, cnt;
+    int node_size, node, cnt, index, isit;
     int len;
     Dict *res;
 
@@ -57,7 +57,21 @@ Dict *SimplfySkel(unsigned char *img, int *vis, int rows,int cols){
 
     for (int i = 0; i < rows; i++){
         for (int j = 0; j < cols; j++){
-            if (vis[i * cols + j]) continue;
+            index = i * cols + j;
+            
+            if (!img[index]) continue;
+
+            if (vis[index]){
+                isit = 0;
+                for (int k = 1; k < node_size; k++)
+                    if (vis[index] == res[k].key){
+                        isit = 1;
+                        break;
+                    }
+                img[index] *= isit;   
+                continue;
+            }
+
             len = CirDfs(img, vis, rows, cols, i, j, cnt, 1);
             if (len >= wire_lenght){
                 node_size++;
@@ -67,28 +81,9 @@ Dict *SimplfySkel(unsigned char *img, int *vis, int rows,int cols){
                 res[node_size - 1].key = cnt;
                 res[node_size - 1].val = node;
                 node++;
-            }
+            }else img[index] = 0;
             cnt++;
         }
-    }
-
-    int index, isit;
-    for (int i = 0; i < rows; i++)
-    {
-        for (int j = 0; j < cols; j++)
-        {
-            index = i * cols + j;
-            isit = 0;
-
-            for (int k = 1; k < node_size; k++)
-                if (vis[index] == res[k].key){
-                    isit = res[k].key;
-                    break;
-                }
-
-            img[index] = 30 * isit;        
-        }
-    }
-    
+    }  
     return (res);
 }

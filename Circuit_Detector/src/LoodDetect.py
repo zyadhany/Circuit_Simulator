@@ -29,6 +29,13 @@ CDEC.SimplfySkel.argtypes = [np.ctypeslib.ndpointer(dtype=np.uint8, ndim=2, flag
 
 CDEC.SimplfySkel.restype = ctypes.POINTER(Dict)
 
+#component
+CDEC.CheckDc.argtypes = [np.ctypeslib.ndpointer(dtype=np.uint8, ndim=2, flags='C_CONTIGUOUS'),
+                          ctypes.c_int, ctypes.c_int]
+
+CDEC.CheckDc.restype = ctypes.c_int
+
+
 #array
 CDEC.free_array.argtypes = [ctypes.POINTER(ctypes.c_int)]
 CDEC.free_dict.argtypes = [ctypes.POINTER(Dict)]

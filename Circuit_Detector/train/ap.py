@@ -3,9 +3,8 @@ import numpy as np
 import cv2
 import time
 
-res = cv2.CascadeClassifier('cascade/resistor/cascade.xml')
-res2 = cv2.CascadeClassifier('cascade/resistor/res.xml')
-bat = cv2.CascadeClassifier('cascade/battery/cascade.xml')
+t1 = cv2.CascadeClassifier('cascade/battery/cascade.xml')
+t2 = cv2.CascadeClassifier('cascade/battery/DCS.xml')
 
 
 def resize(src, width=0, height=0):
@@ -34,20 +33,19 @@ frame = cv2.imread('imm.jpg')
 frame = resize(frame, height=720)
 gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-r = res.detectMultiScale2(gray, 1.2, 200)
 start = time.time()
-r = res.detectMultiScale2(gray, 1.3, 60)
+r = t1.detectMultiScale2(gray, 1.1, 60)
 end = time.time()
 print(f"Time is: {end - start}")
 
 
 start = time.time()
-d = res2.detectMultiScale2(gray, 1.3, 60)
+d = t2.detectMultiScale2(gray, 1.1, 60)
 end = time.time()
 print(f"Time is: {end - start}")
 
-sr = 300
-sd = 300
+sr = 20
+sd = 20
 
 n = 0
 for i in r[0]:

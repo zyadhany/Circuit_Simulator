@@ -1,7 +1,7 @@
 import os
 import cv2
 
-opj = 'res'
+opj = 'DCS'
 directory = 'data/images'
 files = os.listdir(directory)
 

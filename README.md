@@ -21,6 +21,9 @@ pip install sympy
 pip install tabulate
 pip install matplotlib
 pip install nose
+
+pip install opencv-python
+pip install pyautogui
 ```
 
 ## Usage

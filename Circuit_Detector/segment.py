@@ -7,11 +7,13 @@ import sys
 from src.LoodDetect import CDEC
 import time
 
-my_opjects = [Resistance(), DCS()]
+#my_opjects = [Resistance(), DCS()]
+my_opjects = [DCS()]
 
 boxwire = 10
 wire_lenght = 200
 MAXDIFF = 10
+
 
 def getnode(gray, nodes, node_map, opj):
 	y, x, h, w = opj
@@ -41,10 +43,13 @@ def getnode(gray, nodes, node_map, opj):
 def CreatCircuit(gray, nodes, node_map, comp):
 	circuit = []
 
+	for opj in my_opjects:
+		opj.index = 1
+
 	for opj_itration in comp:
 		opj = opj_itration[1]()
-		opj.name = opj_itration[1].name
-		opj_itration[1].name += 1
+		opj.index = opj_itration[1].index
+		opj_itration[1].index += 1
 		opj.n1, opj.n2 = getnode(gray, nodes, node_map, opj_itration[0][1:])
 	
 		circuit.append(opj)
@@ -84,12 +89,16 @@ def IsIntersection(comp, op):
 	return (0)
 
 def AddComponent(components, op):
+	going = 1
 
-	for comp in components:
-		iscomp = IsIntersection(comp, op)
-		if iscomp:
-			op = iscomp
-			components.remove(comp)
+	while going:
+		going = 0
+		for comp in components:
+			iscomp = IsIntersection(comp, op)
+			if iscomp:
+				going = 1
+				op = iscomp
+				components.remove(comp)
 	components.append((op[0], op[1]))
 
 def getComponents(src):
