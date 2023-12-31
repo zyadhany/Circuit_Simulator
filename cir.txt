@@ -1,0 +1,5 @@
+R1 n2 n1 1
+R2 n4 n5 1
+R3 n4 n5 1
+R4 n3 n1 1
+V1 n2 0 type=vdc value=1

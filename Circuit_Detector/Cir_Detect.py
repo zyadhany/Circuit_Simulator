@@ -4,11 +4,12 @@ import cv2
 import pyautogui
 import numpy as np
 import time
-import editor
-import segment
+from . import editor, segment
+
 
 def LiveDetect():
 	key = -1
+
 	while True:
 		screenshot = pyautogui.screenshot()
 		frame = cv2.cvtColor(np.array(screenshot), cv2.COLOR_RGB2BGR)
@@ -22,11 +23,11 @@ def LiveDetect():
 
 		if key == ord('q'):
 			break
-	
-	for op in res['circuit']:
-		print(op)
-	cv2.waitKey(0)
+		elif key != -1:
+			res = 0
+			break
 	cv2.destroyAllWindows()
+	return (res)
 
 def Detect_Circuit(src):
 	result = {}

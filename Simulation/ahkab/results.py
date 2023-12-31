@@ -449,19 +449,19 @@ class op_solution(solution, _mutable_data):
         else:
             fp = sys.stdout
         fp.write(self.timestamp+"\n")
-        fp.write("ahkab v. "+__version__+" (c) 2006-2015 Giuseppe Venturini\n\n")
+        #fp.write("ahkab v. "+__version__+" (c) 2006-2015 Giuseppe Venturini\n\n")
         fp.write("Operating Point (OP) analysis\n\n")
-        fp.write("Netlist: %s\nTitle: %s\n" % (self.netlist_file, self.netlist_title))
-        fp.write("At %.2f K\n" % (self.temp,))
-        fp.write("Options:\n\tvea = %e\n\tver = %f\n\tiea = %e\n\tier = %f\n\tgmin = %e\n" \
-                 % (self.vea, self.ver, self.iea, self.ier, self.gmin))
-        fp.write("\nConvergence reached in %d iterations.\n" % (self.iterations,))
-        fp.write("\n========\n")
-        fp.write("RESULTS:\n")
-        fp.write("========\n\n")
-        vtable = self.get_table_array()
-        fp.write(vtable+'\n')
-        fp.write("\n========================\n")
+        #fp.write("Netlist: %s\nTitle: %s\n" % (self.netlist_file, self.netlist_title))
+        #fp.write("At %.2f K\n" % (self.temp,))
+        #fp.write("Options:\n\tvea = %e\n\tver = %f\n\tiea = %e\n\tier = %f\n\tgmin = %e\n" \
+        #         % (self.vea, self.ver, self.iea, self.ier, self.gmin))
+        #fp.write("\nConvergence reached in %d iterations.\n" % (self.iterations,))
+        #fp.write("\n========\n")
+        #fp.write("RESULTS:\n")
+        #fp.write("========\n\n")
+        #vtable = self.get_table_array()
+        #fp.write(vtable+'\n')
+        #fp.write("\n========================\n")
         fp.write("ELEMENTS OP INFORMATION:\n")
         fp.write("========================\n\n")
         for k in sorted(self._op_info.keys()):

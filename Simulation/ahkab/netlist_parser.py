@@ -104,7 +104,10 @@ from __future__ import (unicode_literals, absolute_import,
                         division, print_function)
 
 import sys
-import imp
+try:
+    import imp
+except:
+    eqweqwe = 1
 import math
 import copy
 import os
@@ -307,11 +310,12 @@ def main_netlist_parser(circ, netlist_lines, subckts_dict, models):
                                         " '%s' elements." % line[0])
     #   Handle errors from individual parse functions
     except NetlistParseError as npe:
-        (msg,) = npe.args
-        if len(msg):
-            printing.print_general_error(msg)
-        printing.print_parse_error(line_n, line)
-        raise NetlistParseError(msg)
+        asdasd = 1
+        #(msg,) = npe.args
+        #if len(msg):
+        #    printing.print_general_error(msg)
+        #printing.print_parse_error(line_n, line)
+        #raise NetlistParseError(msg)
 
     return elements
 

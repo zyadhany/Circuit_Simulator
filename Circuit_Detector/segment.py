@@ -1,11 +1,9 @@
 import cv2
 import numpy as np
 
-import editor
-from opjects import *
-import sys
-from src.LoodDetect import CDEC
-import time
+from . import editor
+from .opjects import *
+from .src.LoodDetect import CDEC
 
 my_opjects = [Resistance(), DCS()]
 #my_opjects = [DCS()]

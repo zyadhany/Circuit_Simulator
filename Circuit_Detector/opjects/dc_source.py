@@ -1,14 +1,14 @@
 import cv2
 import numpy as np
 from .component import Component
-from src.LoodDetect import CDEC
+from ..src.LoodDetect import CDEC
 import os
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 class DCS(Component):
 
     casc = cv2.CascadeClassifier(os.path.join(current_dir, '../set/DCS2.xml'))
-    com_type = 'DCS'
+    com_type = 'V'
     name = 'Dcs'
 
     scale_factor = 1.15

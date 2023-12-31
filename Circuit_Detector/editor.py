@@ -2,7 +2,7 @@
 
 import cv2
 import numpy as np
-from src.LoodDetect import CDEC
+from .src.LoodDetect import CDEC
 
 def breakImg(src):
     CDEC.BreakImg(src, src.shape[0], src.shape[1])

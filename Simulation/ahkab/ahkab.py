@@ -706,7 +706,7 @@ def run(circ, an_list=None):
             printing.print_warning("%s has x0 set to %s, unavailable. Using 'None'." %
                                    (an_type.upper(), an_item['x0']))
             an_item['x0'] = None
-    
+
         r = analysis[an_type](circ, **an_item)
         results.update({an_type: r})
         if an_type == 'op':

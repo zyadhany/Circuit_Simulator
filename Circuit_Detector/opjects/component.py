@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-from src.LoodDetect import CDEC
+from ..src.LoodDetect import CDEC
 import os
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -67,7 +67,7 @@ class Component():
     
     def getNode(self, gray, nodes, node_map):
         y, x, h, w = self.shape
-        res = [-1, -1]
+        res = [0, 0]
         at = 0
 
         for i in range(x, x + w + 1):
@@ -99,4 +99,4 @@ class Component():
         return res
     
     def __str__(self) -> str:
-        return f'{self.com_type}{self.index} {self.n1} {self.n2} {self.value}'
+        return f'{self.com_type}{self.index} n{self.n1} n{self.n2} {self.value}'
