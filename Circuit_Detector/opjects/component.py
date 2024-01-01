@@ -6,12 +6,16 @@ import os
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
 class Component():
-    casc = cv2.CascadeClassifier()
-
     com_type = 'comp'
     name = 'component'
     index = 1
+    color = (0, 0, 255)
 
+    n1 = 0
+    n2 = 0
+    value = 0
+
+    casc = cv2.CascadeClassifier()
     scale_factor = 1.05
     min_nig = 60
     min_size = (10,10)
@@ -19,15 +23,9 @@ class Component():
 
     min_score = 50
     score_factor = 1
-
-    n1 = 0
-    n2 = 0
-
-    value = 0
-    color = (0, 0, 255)
-
-    shape = [0, 0 ,0, 0]
     score = 0
+    shape = [0, 0 ,0, 0]
+
 
     def __init__(self):
         self.index = self.__class__.index

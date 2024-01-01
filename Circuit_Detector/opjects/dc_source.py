@@ -2,21 +2,20 @@ import cv2
 import numpy as np
 from .component import Component
 from ..src.LoodDetect import CDEC
+from .capacitance import Capac
 import os
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 class DCS(Component):
-
-    casc = cv2.CascadeClassifier(os.path.join(current_dir, '../set/DCS2.xml'))
     com_type = 'V'
-    name = 'Dcs'
-
-    scale_factor = 1.1
-    min_score = 1
+    name = 'V'
+    color = (0, 255, 0)
 
     state = 0
 
-    color = (0, 255, 0)
+    casc = cv2.CascadeClassifier(os.path.join(current_dir, '../set/DCS2.xml'))
+    scale_factor = 1.1
+    min_score = 1
 
     def detect(self, img):
         res = []
@@ -31,11 +30,15 @@ class DCS(Component):
             state = CDEC.CheckDc(roi, height, width)
             
             if state:
-                opj = self.__class__()
+                if state == 5:
+                    opj = Capac()
+                else:
+                    opj = self.__class__()
+                    opj.state = state
                 opj.shape = comp[1:]
                 opj.score = comp[0]
-                opj.state = state
                 res.append(opj)
+
         return (res)
         
     def getNode(self, gray, nodes, node_map):

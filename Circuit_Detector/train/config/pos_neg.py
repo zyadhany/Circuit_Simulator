@@ -1,13 +1,14 @@
 import os
 import cv2
 
-opj = 'ind'
+opj = 'gnd'
 directory = 'data/images'
 files = os.listdir(directory)
 
 pos = open(f'data/{opj}pos.txt', 'w')
 neg = open(f'data/{opj}neg.txt', 'w')
 cnt = 0
+rat = 4
 
 for file in files:
     path = f"{directory}/{file}"
@@ -27,7 +28,7 @@ for file in files:
                     h2 = max(h2, i)
 
         pos.write(f'{path[5:]} 1 {w1} {h1} {w2 - w1} {h2 - h1}\n')
-    elif cnt % 2:
+    elif cnt % rat == 0:
         neg.write(f'{path[5:]}\n')
 
 pos.close()

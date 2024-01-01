@@ -1,10 +1,10 @@
 import cv2
 import os
 
-opj = 'ind'
-rotate = 2
+opj = 'gnd'
+rotate = 1
 dist = 'data/images'
-directory = 'data/archive/SolvaDataset_200_v3/inductor'
+directory = 'data/archive/SolvaDataset_200_v3/gnd_1'
 files = os.listdir(directory)
 
 def getline(img):
