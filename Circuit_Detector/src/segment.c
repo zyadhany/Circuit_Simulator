@@ -35,7 +35,7 @@ int CirDfs(unsigned char *skel, int *vis, int rows, int cols, int l, int r, int 
     int len = 1;
     vis[index] = val;    
 
-    if (deep > max_lenght) return -MAX_IMG_SIZE;
+    if (deep > max_lenght) return 1;
 
     for (int i = l - boxwire; i <= l + boxwire; i++)
         for (int j = r - boxwire; j <= r + boxwire; j++)
@@ -44,7 +44,7 @@ int CirDfs(unsigned char *skel, int *vis, int rows, int cols, int l, int r, int 
     return (len);
 }
 
-Dict *SimplfySkel(unsigned char *img, int *vis, int rows,int cols){
+Dict *SimplfySkel(unsigned char *img, int *vis, int rows,int cols, int state){
     int node_size, node, cnt, index, isit;
     int len;
     Dict *res;
@@ -73,7 +73,7 @@ Dict *SimplfySkel(unsigned char *img, int *vis, int rows,int cols){
             }
 
             len = CirDfs(img, vis, rows, cols, i, j, cnt, 1);
-            if (len >= wire_lenght){
+            if (len >= wire_lenght * state && len <= max_lenght){
                 node_size++;
                 res = (Dict*)realloc(res, node_size * sizeof(Dict));
                 res[0].key = node_size;

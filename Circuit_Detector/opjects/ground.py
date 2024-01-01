@@ -15,6 +15,8 @@ class Gnd(Component):
     score_factor = 5
 
     nodes = []
+    n1 = 0
+    n2 = 0
 
     def getNode(self, gray, nodes, node_map):
         y, x, h, w = self.shape

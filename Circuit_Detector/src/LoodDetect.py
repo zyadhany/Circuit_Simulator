@@ -26,8 +26,7 @@ class Dict(ctypes.Structure):
 
 CDEC.SimplfySkel.argtypes = [np.ctypeslib.ndpointer(dtype=np.uint8, ndim=2, flags='C_CONTIGUOUS'),
                              np.ctypeslib.ndpointer(dtype=np.int32, ndim=2, flags='C_CONTIGUOUS'),
-                             ctypes.c_int,
-                             ctypes.c_int]
+                             ctypes.c_int, ctypes.c_int, ctypes.c_int]
 
 CDEC.SimplfySkel.restype = ctypes.POINTER(Dict)
 

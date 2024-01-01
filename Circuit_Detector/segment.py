@@ -4,22 +4,29 @@ import numpy as np
 from . import editor
 from .opjects import *
 from .src.LoodDetect import CDEC
+from .constant import *
 
 my_opjects = [Resistance(), DCS(), Inductor(), Capac(), ACS(), Gnd()]
-#my_opjects = [Gnd()]
-
-boxwire = 10
-wire_lenght = 200
-MAXDIFF = 10
+#my_opjects = [Resistance()]
 
 def FixNoding(nodes, circuit):
 	cnt = 1
 	tmp = {}
 	rem_dict = []
 
+	# look at ground
+	for key, val in nodes.items():
+		for comp in circuit:
+			if comp.__class__ == Gnd:
+				if val in comp.nodes:
+					tmp[val], nodes[key] = 0, 0
+					pass
+
 	for key, val in nodes.items():
 		keep = 0
 		for comp in circuit:
+			if val in tmp or not val:
+				continue
 			if val == comp.n1 or val == comp.n2:
 				tmp[val], nodes[key] = cnt, cnt
 				cnt += 1
@@ -29,6 +36,7 @@ def FixNoding(nodes, circuit):
 			rem_dict.append(key)
 	for key in rem_dict:
 		del nodes[key]
+
 	for comp in circuit:
 		if comp.n1 in tmp:
 			comp.n1 = tmp[comp.n1]
@@ -50,12 +58,12 @@ def CreatCircuit(gray, nodes, node_map, components):
 	FixNoding(nodes, circuit)
 	return circuit
 
-def simplfySkel(skel):
+def simplfySkel(skel, state=1):
 	n, m = skel.shape
 	vis = np.zeros((n, m), dtype=int) 
 	result = {}
 
-	dic = CDEC.SimplfySkel(skel, vis, n, m)
+	dic = CDEC.SimplfySkel(skel, vis, n, m, state)
 	
 	for i in range(1, dic[0].key):
 		result[dic[i].key] = dic[i].val
@@ -64,26 +72,12 @@ def simplfySkel(skel):
 	return ([result, vis])
 
 def IsIntersection(comp, op):
-
-	s1 = comp.shape
-	s2 = op.shape
-
-	lw = max(s1[0], s2[0])
-	rw = min(s1[0] + s1[2], s2[0] + s2[2])
-	lh = max(s1[1], s2[1])
-	rh = min(s1[1] + s1[3], s2[1] + s2[3])
-
-	if lw <= rw + MAXDIFF and lh <= rh + MAXDIFF:
-		s2[0] = min(s1[0], s2[0])
-		s2[2] = max(s1[0] + s1[2], s2[0] + s2[2]) - s2[0]
-		s2[1] = min(s1[1], s2[1])
-		s2[3] = max(s1[1] + s1[3], s2[1] + s2[3]) - s2[1]
-		
+	Inter = editor.get2dInersection(comp.shape, op.shape)
+	if Inter:
 		if comp.score >= op.score:
 			op = comp
-			op.shape = s2
-		return (op)
-	
+		op.shape = Inter[1]
+		return (op)	
 	return (0)
 
 def AddComponent(components, op):
@@ -94,8 +88,7 @@ def AddComponent(components, op):
 		for comp in components:
 			iscomp = IsIntersection(comp, op)
 			if iscomp:
-				going = 1
-				op = iscomp
+				op, going = iscomp, 1
 				components.remove(comp)
 	components.append(op)
 

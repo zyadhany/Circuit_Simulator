@@ -29,7 +29,7 @@ void RemovePart(unsigned char *src, int rows, int cols, int x, int y, int w, int
 /* segment */
 int *CompSize(unsigned char *img, int rows, int cols, int x, int y, int w, int h);
 int CirDfs(unsigned char *skel, int *vis, int rows, int cols, int l, int r, int val, int deep);
-Dict *SimplfySkel(unsigned char *img, int *vis, int rows,int cols);
+Dict *SimplfySkel(unsigned char *img, int *vis, int rows,int cols, int state);
 
 /* components */
 int CheckDc(unsigned char *img, int rows, int cols);
