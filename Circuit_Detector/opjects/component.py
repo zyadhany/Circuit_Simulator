@@ -26,7 +26,6 @@ class Component():
     score = 0
     shape = [0, 0 ,0, 0]
 
-
     def __init__(self):
         self.index = self.__class__.index
         self.__class__.index += 1
@@ -46,7 +45,7 @@ class Component():
                 res.append([score * self.score_factor, yc, xc, hc, wc])
 
         return res
-    
+
     def detect(self, img):
         res = []
         components = self.find(img)
@@ -62,7 +61,7 @@ class Component():
         for i in opjs[0]:
             n += 1
         return (n)
-    
+
     def getNode(self, gray, nodes, node_map):
         y, x, h, w = self.shape
         res = [0, 0]
@@ -95,6 +94,6 @@ class Component():
         if res[1] == -1:
             return [0, 0]
         return res
-    
+
     def __str__(self) -> str:
         return f'{self.com_type}{self.index} n{self.n1} n{self.n2} {self.value}'

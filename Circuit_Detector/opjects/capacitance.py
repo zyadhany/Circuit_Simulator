@@ -13,9 +13,5 @@ class Capac(Component):
     scale_factor = 1.1
     min_score = 1
 
-    def init(self):
-        pass
-
     def detect(self, img):
         return []
-        

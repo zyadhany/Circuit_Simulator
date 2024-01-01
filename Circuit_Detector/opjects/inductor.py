@@ -13,8 +13,3 @@ class Inductor(Component):
     scale_factor = 1.3
     min_score = 10
     score_factor = 5
-
-    def init(self):
-        pass
-
-        

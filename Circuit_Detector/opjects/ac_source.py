@@ -14,4 +14,3 @@ class ACS(Component):
     scale_factor = 1.05
     min_score = 1
     score_factor = 20
-    

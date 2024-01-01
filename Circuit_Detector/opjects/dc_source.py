@@ -28,7 +28,7 @@ class DCS(Component):
             roi = np.ascontiguousarray(roi)
 
             state = CDEC.CheckDc(roi, height, width)
-            
+
             if state:
                 if state == 5:
                     opj = Capac()
@@ -40,7 +40,7 @@ class DCS(Component):
                 res.append(opj)
 
         return (res)
-        
+
     def getNode(self, gray, nodes, node_map):
         y, x, h, w = self.shape
 
@@ -58,4 +58,3 @@ class DCS(Component):
                         self.n2 = nodes[node_map[x + w][j]]
         if self.state % 2:
             self.n1, self.n2 = self.n2, self.n1
-    
