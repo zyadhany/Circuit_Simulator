@@ -11,7 +11,7 @@ class DCS(Component):
     com_type = 'V'
     name = 'Dcs'
 
-    scale_factor = 1.15
+    scale_factor = 1.1
     min_score = 1
 
     state = 0

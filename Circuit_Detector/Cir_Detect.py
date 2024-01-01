@@ -16,7 +16,6 @@ def LiveDetect():
 		w = frame.shape[1] // 3
 		frame = frame[:,w:]
 		res = Detect_Circuit(frame)
-
 		frame = res['src']
 		cv2.imshow('Screen', frame)
 		key = cv2.waitKey(1)
@@ -37,7 +36,9 @@ def Detect_Circuit(src):
 	gray = cv2.cvtColor(src, cv2.COLOR_BGR2GRAY)
 	editor.breakImg(gray)
 	
+	s = time.time()
 	skel, comp = segment.getComponents(gray) #35
+	print (time.time() - s)
 	nodes, node_map = segment.simplfySkel(skel) #33
 	circuit = segment.CreatCircuit(skel, nodes, node_map, comp)
 

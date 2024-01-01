@@ -15,6 +15,7 @@
 #define wire_lenght 100
 #define max_lenght 10000
 #define MAX_IMG_SIZE 10000
+#define CAP_RATIO 10
 
 typedef struct{
     int key;

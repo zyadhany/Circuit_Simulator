@@ -5,8 +5,8 @@ from . import editor
 from .opjects import *
 from .src.LoodDetect import CDEC
 
-my_opjects = [Resistance(), DCS()]
-#my_opjects = [DCS()]
+my_opjects = [Resistance(), DCS() , Inductor()]
+#my_opjects = [Inductor()]
 
 boxwire = 10
 wire_lenght = 200

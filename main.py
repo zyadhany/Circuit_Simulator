@@ -6,4 +6,7 @@ from Simulation.ahkab.netlist_parser import parse_circuit
 
 result = LiveDetect()
 
-simulate(result['circuit'])
+for i in result['circuit']:
+    print(i)
+
+#simulate()

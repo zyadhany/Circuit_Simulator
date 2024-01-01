@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<opencv_storage>
+<stage9>
+  <maxWeakCount>10</maxWeakCount>
+  <stageThreshold>-8.6414372920989990e-01</stageThreshold>
+  <weakClassifiers>
+    <_>
+      <internalNodes>
+        0 -1 30831 -6.3535086810588837e-02</internalNodes>
+      <leafValues>
+        8.3216780424118042e-01 -2.1364451944828033e-01</leafValues></_>
+    <_>
+      <internalNodes>
+        0 -1 1929 9.6289493143558502e-02</internalNodes>
+      <leafValues>
+        2.4739058315753937e-01 -8.6240142583847046e-01</leafValues></_>
+    <_>
+      <internalNodes>
+        0 -1 6424 -3.8250745274126530e-04</internalNodes>
+      <leafValues>
+        8.4337425231933594e-01 -2.4526309967041016e-01</leafValues></_>
+    <_>
+      <internalNodes>
+        0 -1 29000 1.2969417730346322e-04</internalNodes>
+      <leafValues>
+        -1.8198770284652710e-01 6.9253271818161011e-01</leafValues></_>
+    <_>
+      <internalNodes>
+        0 -1 29000 -2.5484786601737142e-04</internalNodes>
+      <leafValues>
+        5.4922962188720703e-01 -2.7287605404853821e-01</leafValues></_>
+    <_>
+      <internalNodes>
+        0 -1 15925 -1.8454111705068499e-04</internalNodes>
+      <leafValues>
+        5.8724915981292725e-01 -2.2600443661212921e-01</leafValues></_>
+    <_>
+      <internalNodes>
+        0 -1 5037 -8.9669153094291687e-02</internalNodes>
+      <leafValues>
+        -9.3899232149124146e-01 1.2069129198789597e-01</leafValues></_>
+    <_>
+      <internalNodes>
+        0 -1 32109 -2.4842653423547745e-02</internalNodes>
+      <leafValues>
+        1. -1.7346243560314178e-01</leafValues></_>
+    <_>
+      <internalNodes>
+        0 -1 32168 8.9498155284672976e-04</internalNodes>
+      <leafValues>
+        -1.3141807913780212e-01 8.2026523351669312e-01</leafValues></_>
+    <_>
+      <internalNodes>
+        0 -1 31869 2.1304478650563397e-05</internalNodes>
+      <leafValues>
+        2.1243073046207428e-01 -8.0285996198654175e-01</leafValues></_></weakClassifiers></stage9>
+</opencv_storage>

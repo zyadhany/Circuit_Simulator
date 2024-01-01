@@ -1,28 +1,30 @@
 #!/usr/bin/env python3
 
 from .ahkab.circuit import Circuit
+from . import error
 
-def addres(comp, cir:Circuit):
-    name = f'{comp.com_type}{comp.index}'
-    val = comp.value
-    cir.add_resistor(name, n1=f'n{comp.n1}', n2=f'n{comp.n2}', value=1)
+def GetValue(str):
+    if type(str) == 'float':
+        return str
+    val = float(str)
+    return val
 
-def addDcs(comp, cir:Circuit):
-    name = f'{comp.com_type}{comp.index}'
-    cir.add_vsource(name, n1=f'n{comp.n1}', n2=cir.gnd, dc_value=comp.value)
+def addres(net, cir:Circuit):
+    if len(net) != 4:
+        print(error.RES_NET_ERROR_USAGE)
+        return
+    cir.add_resistor(net[0], n1=net[1], n2=net[2], value=GetValue(net[3]))
+
+def addDcs(net, cir:Circuit):
+    if len(net) != 4:
+        print(error.DCS_NET_ERROR_USAGE)
+        return
+    cir.add_vsource(net[0], n1=net[1], n2=net[2], dc_value=GetValue(net[3]))
 
 
 COMP_MAPING = {'R': addres, 'V' : addDcs}
 
 def CreatCir(inp_cir, cir:Circuit):
-    cir.add_resistor('R1', 'n1', cir.gnd, value=5)
-    cir.add_vsource('V1', 'n2', 'n1', dc_value=8)
-    cir.add_resistor('R2', 'n2', cir.gnd, value=2)
-    cir.add_vsource('V2', 'n3', 'n2', dc_value=4)
-    cir.add_resistor('R3', 'n3', cir.gnd, value=4)
-    cir.add_resistor('R4', 'n3', 'n4', value=1)
-    cir.add_vsource('V3', 'n4', cir.gnd, dc_value=10)
-    cir.add_resistor('R5', 'n2', 'n4', value=4)
-    return cir
     for comp in inp_cir:
-        COMP_MAPING[comp.com_type](comp, cir)
+        COMP_MAPING[comp.com_type](str(comp), cir)
+    return cir

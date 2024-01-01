@@ -44,7 +44,11 @@ int CheckDc(unsigned char *img, int rows, int cols){
         for (int i = n - 1; tmp[i] ; i--) r = MAX(r, tmp[i]);
     }
     
+   
     free(L); free(R);
     state += (r > l);
+    if  (abs(r - l) <= CAP_RATIO && r && l){
+        state = 5;
+    }
     return (state);
 }

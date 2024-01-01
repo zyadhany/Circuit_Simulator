@@ -1,7 +1,7 @@
 import os
 import cv2
 
-opj = 'DCS'
+opj = 'ind'
 directory = 'data/images'
 files = os.listdir(directory)
 
@@ -27,7 +27,7 @@ for file in files:
                     h2 = max(h2, i)
 
         pos.write(f'{path[5:]} 1 {w1} {h1} {w2 - w1} {h2 - h1}\n')
-    else:
+    elif cnt % 2:
         neg.write(f'{path[5:]}\n')
 
 pos.close()

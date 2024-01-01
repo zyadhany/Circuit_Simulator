@@ -22,5 +22,5 @@ config\opencv_createsamples.exe -info data\DCSpos.txt -w 24 -h 24 -num 1000 -vec
 
 
 # lab
-..\..\..\..\opencv\build\x64\vc15\bin\opencv_createsamples.exe -info DCSpos.txt -w 16 -h 16 -num 800 -vec DCS.vec
-..\..\..\..\opencv\build\x64\vc15\bin\opencv_traincascade.exe -data ..\cascade\battery -vec DCS.vec -bg DCSneg.txt -numPos 350 -numNeg 350 -numStages 10 -w 16 -h 16
+..\..\..\..\opencv\opencv\build\x64\vc15\bin\opencv_createsamples.exe -info indpos.txt -w 16 -h 16 -num 400 -vec ind.vec
+..\..\..\..\opencv\opencv\build\x64\vc15\bin\opencv_traincascade.exe -data ..\cascade\inductor -vec ind.vec -bg indneg.txt -numPos 350 -numNeg 350 -numStages 10 -w 16 -h 16
