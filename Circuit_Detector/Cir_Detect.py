@@ -3,9 +3,7 @@
 import cv2
 import pyautogui
 import numpy as np
-import time
 from . import editor, segment, result
-
 
 def LiveDetect():
 	key = -1
@@ -13,28 +11,28 @@ def LiveDetect():
 	while True:
 		screenshot = pyautogui.screenshot()
 		frame = cv2.cvtColor(np.array(screenshot), cv2.COLOR_RGB2BGR)
-		w = frame.shape[1] // 3
-		frame = frame[:,w:]
+		#w = frame.shape[1] // 3
+		w = 560
+		frame = frame[200:-50,w:]
 		res = Detect_Circuit(frame)
 		frame = res['src']
 		cv2.imshow('Screen', frame)
-		cv2.imshow('skel', res['gray'])
+		#cv2.imshow('skel', res['gray'])
 		key = cv2.waitKey(1)
 
-		if key == ord('q'):
+		if key != -1:
 			break
-		elif key != -1:
-			res = 0
-			break
-
 	cv2.destroyAllWindows()
+	
+	if key != 13:
+		return (0)
 	return (res)
 
 def Detect_Circuit(src):
 	res = {}
 
 	# edit imagae to for reconizaton
-	src = editor.resize(src, width=720)
+	src = editor.resize(src, width=560)
 	gray = cv2.cvtColor(src, cv2.COLOR_BGR2GRAY)
 	editor.breakImg(gray)
 	segment.simplfySkel(gray, state=0)
@@ -56,16 +54,5 @@ def Detect_Circuit(src):
 	result.BuildResult(res)
 	return (res)
 
-
 if __name__ == "__main__":
 	LiveDetect()
-	exit()
-	img = cv2.imread(f"img_test/img6.jpg")
-	res = Detect_Circuit(img)
-	start = time.time()
-	res = Detect_Circuit(img)
-	end = time.time()
-	print("Time Taken: ", (end - start) * 1000)
-
-	cv2.imshow('res', res['src'])
-	cv2.waitKey(0)

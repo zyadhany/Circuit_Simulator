@@ -13,6 +13,6 @@ result = LiveDetect()
 for i in result['circuit']:
     print(i)
 
-cv2.imshow('res', result['src'])
+cv2.imshow('res', result['srcScale'])
 cv2.waitKey(0)
 #simulate()

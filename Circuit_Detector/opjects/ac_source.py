@@ -1,5 +1,4 @@
 import cv2
-import numpy as np
 from .component import Component
 from ..src.LoodDetect import CDEC
 import os
@@ -16,4 +15,4 @@ class ACS(Component):
     casc = cv2.CascadeClassifier(os.path.join(current_dir, '../set/ACS2.xml'))
     scale_factor = 1.05
     min_score = 1
-    score_factor = 20
+    score_factor = 1000

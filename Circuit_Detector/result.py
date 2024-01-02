@@ -1,4 +1,3 @@
-import cv2
 import numpy as np
 from . import editor
 from .src.LoodDetect import CDEC

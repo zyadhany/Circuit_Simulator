@@ -18,6 +18,7 @@ This project is seprated into 3 parts.
 -   Sheard Libraries (DLL files)
 -   Algorithms like: DFS - Prefix
 -   Circuit mathmatic soluation
+-   Command line interface
 -   Gui with python
 -   Machine learning
 -   train dataset for opject detection

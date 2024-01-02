@@ -12,6 +12,7 @@ def rootConfig(root: tk.Tk):
     image_path = os.path.join(current_directory, image_filename)
     root.config(width=root.winfo_screenwidth(), height=root.winfo_screenheight())
     root.minsize(1280, 720)
+    root.maxsize(1280, 720)
     root.attributes('-fullscreen', False)
     root.bind("<F11>", lambda event: toggle_fullscreen(root))
     root.bind("<q>", lambda event: root.quit())
