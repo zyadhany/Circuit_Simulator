@@ -7,23 +7,26 @@ from .constant import *
 
 my_opjects = [Resistance(), DCS(), Inductor(), Capac(), ACS(), Gnd()]
 #my_opjects = [Resistance()]
+NOT_CIR_COMP = [Gnd]
 
 def FixNoding(nodes, circuit):
 	cnt = 1
 	tmp = {}
 	rem_dict = []
-
-	# look at ground
+	gnd = []
+	
 	for key, val in nodes.items():
 		for comp in circuit:
 			if comp.__class__ == Gnd:
 				if val in comp.nodes:
-					tmp[val], nodes[key] = 0, 0
-					pass
+					gnd.append(val)
 
 	for key, val in nodes.items():
 		keep = 0
-		if val in tmp or not val:
+		if val in tmp:
+			continue
+		if val in gnd:
+			tmp[val], nodes[key] = 0, 0
 			continue
 		for comp in circuit:
 			if val == comp.n1 or val == comp.n2:
@@ -37,11 +40,17 @@ def FixNoding(nodes, circuit):
 		del nodes[key]
 
 	for comp in circuit:
+		if comp.__class__ == Gnd:
+			continue
 		if comp.n1 in tmp:
 			comp.n1 = tmp[comp.n1]
 		if comp.n2 in tmp:
 			comp.n2 = tmp[comp.n2]
-
+		if comp.n1:
+			comp.n1 = f'n{comp.n1}'
+		if comp.n2:
+			comp.n2 = f'n{comp.n2}'
+		
 def CreatCircuit(gray, nodes, node_map, components):
 	circuit = []
 
@@ -59,6 +68,9 @@ def CreatCircuit(gray, nodes, node_map, components):
 		circuit.append(opj)
 
 	FixNoding(nodes, circuit)
+	for opj in circuit:
+		if opj.__class__ in NOT_CIR_COMP:
+			circuit.remove(opj)
 	return circuit
 
 def simplfySkel(skel, state=1):

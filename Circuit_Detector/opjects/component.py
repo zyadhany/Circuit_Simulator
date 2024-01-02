@@ -95,4 +95,4 @@ class Component():
         return res
 
     def __str__(self) -> str:
-        return f'{self.com_type}{self.index} n{self.n1} n{self.n2} {self.value}'
+        return f'{self.com_type}{self.index} {self.n2} {self.n1} {self.value}'

@@ -44,7 +44,7 @@ def Detect_Circuit(src):
 	# creat circuit
 	circuit = segment.CreatCircuit(skel, nodes, node_map, comp)
 
-	editor.draw_rectangle(src, circuit)
+	editor.draw_rectangle(src, comp)
 
 	res['gray'] = gray
 	res['skel'] = skel

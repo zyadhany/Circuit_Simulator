@@ -62,3 +62,6 @@ class DCS(Component):
                         self.n2 = nodes[node_map[x + w][j]]
         if self.state % 2:
             self.n1, self.n2 = self.n2, self.n1
+
+    def __str__(self) -> str:
+        return f'{self.com_type}{self.index} {self.n2} {self.n1} dc={self.value} ac=0'
