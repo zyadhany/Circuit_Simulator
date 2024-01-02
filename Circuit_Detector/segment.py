@@ -24,9 +24,9 @@ def FixNoding(nodes, circuit):
 
 	for key, val in nodes.items():
 		keep = 0
+		if val in tmp or not val:
+			continue
 		for comp in circuit:
-			if val in tmp or not val:
-				continue
 			if val == comp.n1 or val == comp.n2:
 				tmp[val], nodes[key] = cnt, cnt
 				cnt += 1
@@ -50,8 +50,12 @@ def CreatCircuit(gray, nodes, node_map, components):
 		opj.__class__.index = 1
 
 	for opj in components:
-		opj.index = opj.__class__.index
-		opj.__class__.index += 1
+		if opj.__class__ == ACS:
+			opj.index = DCS.index
+			DCS.index += 1
+		else:
+			opj.index = opj.__class__.index
+			opj.__class__.index += 1
 		opj.getNode(gray, nodes, node_map)
 		circuit.append(opj)
 
@@ -73,7 +77,7 @@ def simplfySkel(skel, state=1):
 
 def IsIntersection(comp, op):
 	Inter = editor.get2dInersection(comp.shape, op.shape)
-	if Inter:
+	if Inter[0][0] != -1:
 		if comp.score >= op.score:
 			op = comp
 		op.shape = Inter[1]

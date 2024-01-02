@@ -1,97 +1,78 @@
-import cv2
-import pyautogui
-import numpy as np
-from Circuit_Detector import *
-import time
+import tkinter as tk
+import os
 
+current_directory = os.getcwd()
 
-cnt = 0
-took = 0
+def toggle_fullscreen(root):
+    root.attributes('-fullscreen', not root.attributes('-fullscreen'))
 
-def init():
-	img = cv2.imread('img_test/img1.jpg')
-	img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-	casc = cv2.CascadeClassifier('set/res.xml')
-	opj = casc.detectMultiScale2(img,scaleFactor=1.05, minNeighbors=60)
+def rootConfig(root: tk.Tk):
+    root.title("Simulation")
+    image_filename = "resource\icon.ico"
+    image_path = os.path.join(current_directory, image_filename)
+    root.config(width=root.winfo_screenwidth(), height=root.winfo_screenheight())
+    root.minsize(1280, 720)
+    root.attributes('-fullscreen', False)
+    root.bind("<F11>", lambda event: toggle_fullscreen(root))
+    root.bind("<q>", lambda event: root.quit())
+    return root
 
-def FPS(s):
-	global took
-	global cnt
-	took += time.time() - s
-	cnt += 1
-	print(took)
-	if took >= 1:
-		print(cnt / took)
-		cnt = 0
-		took = 0
+def FrameBuild(root: tk.Tk):
+    window_width = root.winfo_screenwidth()
+    window_height = root.winfo_screenheight()
 
-def show_camera():
-	cap = cv2.VideoCapture('Circuit_Detector/img_test/vid3.mp4')
+    # grid geometry
+    w_head = int(window_width)
+    h_head = int(window_height * 0.1)
+    gc_head = 2
+    gr_head = 1
 
-	while True:
-		ret, frame = cap.read()
+    h_content = window_height - h_head
+    w_content = int(window_width)
 
-		start = time.time()  
-		frame = Detect_Circuit(frame)['gray']
-		end = time.time()
-		print("Time Taken: ", end - start)
+    gc_content = 1
+    gr_content = 1
 
-		cv2.imshow('Video', frame)
-		if cv2.waitKey(1) == ord('q'):
-			break
+    # Header Frame
+    header = tk.Frame(root, height=h_head, width=w_head, bg='#95D7AE')
+    header.grid(row=0, column=0, columnspan=gc_head, rowspan=gr_head, sticky='ew')
 
+    # Add buttons to header
+    button1 = tk.Button(header, text="DET")
+    button1.pack(side=tk.LEFT, padx=(10, 20), pady=50)
+    button2 = tk.Button(header, text="RUN")
+    button2.pack(side=tk.LEFT, padx=10, pady=30)
 
-		# Wait for the 'q' key to be pressed to exit the loop
-		if cv2.waitKey(1) == ord('q'):
-			break
+    # Main Content Frame
+    content = tk.Frame(root, height=h_content, width=w_content, bg='white')
+    content.grid(row=gr_head, column=0, rowspan=gr_content, columnspan=gc_content, sticky='nsew')
+    add_button_button = tk.Button(content, text="Add ", command=add_button,anchor='ne')
+    add_button_button.pack(anchor='ne')
+    header.pack_propagate(False)
+    content.pack_propagate(False)
+    return [header, content]
 
-	# Release the camera and close the window
-	cap.release()
-	cv2.destroyAllWindows()
+# Function to add dynamic button
+def add_button():
+    new_button = tk.Button(frames[1], text="result", command=delete_button)
+    new_button.pack(anchor='ne')
 
-def show_image():
-	frame = cv2.imread('img1.jpg')
-	frame = Detect_Circuit(frame)[0]
-	#cv2.imshow('Video', frame)
-	cv2.waitKey(0)
+# Function to delete the last button
+def delete_button():
+    # Delete the last button if there are buttons present
+    all_buttons = frames[1].pack_slaves()
+    if all_buttons:
+        last_button = all_buttons[-1]
+        last_button.destroy()
 
-def show_screen():
-    screen_width, screen_height = pyautogui.size()
+# Create the root window
+root = tk.Tk()
 
-    start_time = time.time()
-    frame_count = 0
+# Configure the root window
+rootConfig(root)
 
-    while True:
-        screenshot = pyautogui.screenshot()
-        frame = cv2.cvtColor(np.array(screenshot), cv2.COLOR_RGB2BGR)
+# Build frames
+frames = FrameBuild(root)
 
-        w = frame.shape[0] // 2
-
-        s = time.time()
-        frame = Detect_Circuit(frame)[0]
-        cv2.imshow('Screen', frame)
-        e = time.time()
-
-        frame_count += 1
-
-        # Calculate time taken for each frame
-        elapsed_time = e - s
-        #print("Time Taken for Frame {}: {:.2f} seconds".format(frame_count, elapsed_time))
-
-        if cv2.waitKey(1) == ord('q'):
-            break
-
-    end_time = time.time()
-    total_time = end_time - start_time
-    fps = frame_count / total_time
-    print("Average FPS: {:.2f}".format(fps))
-
-    cv2.destroyAllWindows()
-
-
-start = time.time()
-show_camera()
-#show_image()
-#show_screen()
-end = time.time()
-print(end - start)
+# Run the main loop
+root.mainloop()

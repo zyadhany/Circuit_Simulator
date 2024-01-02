@@ -4,7 +4,7 @@ import cv2
 import pyautogui
 import numpy as np
 import time
-from . import editor, segment
+from . import editor, segment, result
 
 
 def LiveDetect():
@@ -31,7 +31,7 @@ def LiveDetect():
 	return (res)
 
 def Detect_Circuit(src):
-	result = {}
+	res = {}
 
 	# edit imagae to for reconizaton
 	src = editor.resize(src, width=720)
@@ -46,13 +46,15 @@ def Detect_Circuit(src):
 	# creat circuit
 	circuit = segment.CreatCircuit(skel, nodes, node_map, comp)
 
-	editor.draw_rectangle(src, comp)
+	editor.draw_rectangle(src, circuit)
 
-	result['skel'] = skel
-	result['gray'] = gray
-	result['src'] = src
-	result['circuit'] = circuit
-	return (result)
+	res['gray'] = gray
+	res['skel'] = skel
+	res['src'] = src
+	res['circuit'] = circuit
+	res['nodes'], res['node_map'] = nodes, node_map
+	result.BuildResult(res)
+	return (res)
 
 
 if __name__ == "__main__":

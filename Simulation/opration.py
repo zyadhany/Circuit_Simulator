@@ -8,8 +8,12 @@ def op(op, cir):
     op = new_op()
     return (op)
 
+def ac(op, cir):
+    op = new_ac()
+    return (op)
+
 OPRATION = {
-    'op': op
+    'op': op, 'ac':ac
 }
 
 def runCir(op, cir):

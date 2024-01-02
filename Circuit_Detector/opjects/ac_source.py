@@ -10,6 +10,9 @@ class ACS(Component):
     name = 'Vc'
     color = (0, 125, 125)
 
+    val_ac = 0
+    type = 'ac'
+
     casc = cv2.CascadeClassifier(os.path.join(current_dir, '../set/ACS2.xml'))
     scale_factor = 1.05
     min_score = 1

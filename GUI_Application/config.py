@@ -31,8 +31,8 @@ def rootConfig(root:tk.Tk):
 
 def headConfig(header:tk.Tk):
     run = Button(header)
-    button.pack(expand=True, padx=10, pady=10)  # Add padding for better visualization
     run.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
+    run.pack(expand=True, padx=10, pady=10)  # Add padding for better visualization
     run.pack()
     return header
 

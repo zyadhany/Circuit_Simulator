@@ -11,11 +11,15 @@ class DCS(Component):
     name = 'V'
     color = (0, 255, 0)
 
+    val_ac = 0
+    type = 'dc'
     state = 0
 
     casc = cv2.CascadeClassifier(os.path.join(current_dir, '../set/DCS2.xml'))
     scale_factor = 1.1
     min_score = 1
+
+
 
     def detect(self, img):
         res = []

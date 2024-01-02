@@ -25,6 +25,30 @@ int* CompSize(unsigned char *img, int rows, int cols, int x, int y, int w, int h
     return (result);
 }
 
+int *nodeScale(int *nodes, int *vis, int rows, int cols, int n){
+    int index;
+    int *res = malloc(sizeof(int) * 4);
+    res[0] = res[1] = 2400;
+    res[2] = res[3] = 0;
+    for (int i = 0; i < rows; i++){
+        for (int j = 0; j < cols; j++){
+            index = i * cols + j;
+            if (vis[index])
+                for (int k = 0; k < n; k++)
+                    if (vis[index] == nodes[k]){
+                        res[0] = MIN(res[0], j);
+                        res[2] = MAX(res[2], j);
+                        res[1] = MIN(res[1], i);
+                        res[3] = MAX(res[3], i);
+                        break;
+                    }
+        }
+    }
+    res[2] -= res[0];
+    res[3] -= res[1];
+    return (res);
+}
+
 int CirDfs(unsigned char *skel, int *vis, int rows, int cols, int l, int r, int val, int deep){
     if (l < 0 || l >= rows || r < 0 || r >= cols)
         return (0);
@@ -44,7 +68,7 @@ int CirDfs(unsigned char *skel, int *vis, int rows, int cols, int l, int r, int 
     return (len);
 }
 
-Dict *SimplfySkel(unsigned char *img, int *vis, int rows,int cols, int state){
+Dict *SimplfySkel(unsigned char *img, int *vis, int rows, int cols, int state){
     int node_size, node, cnt, index, isit;
     int len;
     Dict *res;
