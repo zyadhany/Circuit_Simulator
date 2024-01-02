@@ -18,7 +18,7 @@ def LiveDetect():
 		res = Detect_Circuit(frame)
 		frame = res['src']
 		cv2.imshow('Screen', frame)
-		cv2.imshow('skel', res['gray'])
+		#cv2.imshow('skel', res['gray'])
 		key = cv2.waitKey(1)
 
 		if key == ord('q'):
@@ -26,7 +26,6 @@ def LiveDetect():
 		elif key != -1:
 			res = 0
 			break
-
 	cv2.destroyAllWindows()
 	return (res)
 
@@ -46,7 +45,7 @@ def Detect_Circuit(src):
 	# creat circuit
 	circuit = segment.CreatCircuit(skel, nodes, node_map, comp)
 
-	editor.draw_rectangle(src, circuit)
+	editor.draw_rectangle(src, comp)
 
 	res['gray'] = gray
 	res['skel'] = skel

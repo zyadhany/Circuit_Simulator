@@ -1,4 +1,4 @@
-2024-01-01 21:16:42
+2024-01-02 18:59:43
 Operating Point (OP) analysis
 
 ELEMENTS OP INFORMATION:
@@ -6,13 +6,11 @@ ELEMENTS OP INFORMATION:
 
 Part ID      R [Ω]    V(n1,n2) [V]    I(n1->n2) [A]    P [W]
 ---------  -------  --------------  ---------------  -------
-R1               5             -10               -2       20
-R2              10             -20               -2       40
-R3               5             -10               -2       20
+R1               5              10                2       20
 
 Part ID      V(n1,n2) [V]    I(n1->n2) [A]    P [W]
 ---------  --------------  ---------------  -------
-V1                     40               -2      -80
+V1                     10               -2      -20
 
-Total power dissipation: 80 W
+Total power dissipation: 20 W
 

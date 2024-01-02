@@ -20,6 +20,7 @@ class Gnd(Component):
 
     def getNode(self, gray, nodes, node_map):
         y, x, h, w = self.shape
+        self.nodes = []
 
         for i in range(x, x + w + 1):
             if node_map[i][y] in nodes and gray[i][y]:
@@ -35,4 +36,4 @@ class Gnd(Component):
                     self.nodes.append(nodes[node_map[x][j]])
             if node_map[x + w][j] in nodes and gray[x + w][j]:
                 if nodes[node_map[x + w][j]] not in self.nodes:
-                    self.nodes.append(nodes[node_map[x + 2][j]])
+                    self.nodes.append(nodes[node_map[x + w][j]])
