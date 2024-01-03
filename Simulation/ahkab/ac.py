@@ -279,7 +279,6 @@ def ac_analysis(circ, start, points, stop, sweep_type=None,
     sol = results.ac_solution(circ, start=start, stop=stop, points=points,
                               stype=sweep_type, op=x0, outfile=outfile)
 
-    # setup the initial values to start the iteration:
     j = np.complex_('j')
 
     Gmin_matrix = dc_analysis.build_gmin_matrix(

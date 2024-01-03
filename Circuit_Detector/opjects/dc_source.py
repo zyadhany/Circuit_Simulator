@@ -63,5 +63,5 @@ class DCS(Component):
         if self.state % 2:
             self.n1, self.n2 = self.n2, self.n1
 
-    def __str__(self) -> str:
-        return f'{self.com_type}{self.index} {self.n2} {self.n1} dc={self.value} ac=0'
+#    def __str__(self) -> str:
+#        return f'{self.com_type}{self.index} {self.n2} {self.n1} dc={self.value} ac=0'

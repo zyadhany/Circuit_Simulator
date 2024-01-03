@@ -448,9 +448,9 @@ class op_solution(solution, _mutable_data):
             fp = printing.open_utf8(filename+"info")
         else:
             fp = sys.stdout
-        fp.write(self.timestamp+"\n")
+        #fp.write(self.timestamp+"\n")
         #fp.write("ahkab v. "+__version__+" (c) 2006-2015 Giuseppe Venturini\n\n")
-        fp.write("Operating Point (OP) analysis\n\n")
+        #fp.write("Operating Point (OP) analysis\n\n")
         #fp.write("Netlist: %s\nTitle: %s\n" % (self.netlist_file, self.netlist_title))
         #fp.write("At %.2f K\n" % (self.temp,))
         #fp.write("Options:\n\tvea = %e\n\tver = %f\n\tiea = %e\n\tier = %f\n\tgmin = %e\n" \

@@ -13,8 +13,8 @@ import time
 import multiprocessing
 
 class SimulationCommand(cmd.Cmd):
-	prompt = '(SAGED): '
-	cir = Circuit()
+	prompt = '(FTP): '
+	cir = Circuit("Circuit")
 	circuit_name = 'Circuit'
 	net = []
 	gnd = 0
@@ -36,7 +36,7 @@ class SimulationCommand(cmd.Cmd):
 		print(self.cir)
 
 	def do_reset(self, arg=[]):
-		self.cir = Circuit()
+		self.cir = Circuit("Circuit")
 		self.net = []
 		self.res = None
 
@@ -61,25 +61,25 @@ class SimulationCommand(cmd.Cmd):
 		cv2.waitKey(0)
 		cv2.destroyAllWindows()  # Close the window after the image is displayed
 
-	def display_image_thread(self, image, name=None):
-		#thread = threading.Thread(target=self.show_image, args=(image,name,))
-		#thread.start()
-		#process = multiprocessing.Process(target=self.show_image, args=(image,name,))
-		#process.start()
+	def display_image_process(self, image=None, name=None):
+		new_process = multiprocessing.Process(target=show_image, args=(image,name,))
+		new_process.start()
 		pass
 
 	def do_detect(self, arg, itrateValue=1):
-		self.do_reset()
 		res = LiveDetect()
+		if not res:
+			return (False)
+
+		self.do_reset()
 		net = []
 
 		if len(res['circuit']) == 0:
 			print("No circuit detected")
 			return (False)
 
-		self.display_image_thread(res['srcScale'], '1')
-		#time.sleep(2)
-		#self.display_image_thread(res['grayScale'], '2')
+		self.display_image_process(res['srcScale'], 'src')
+		#self.display_image_process(res['grayScale'], 'gray')
 
 		if itrateValue:
 			ItrateCircValue(res['circuit'])
@@ -112,27 +112,31 @@ class SimulationCommand(cmd.Cmd):
 		""" run simmulation:
 			usage: run (opration) ->
 			op :> simple dc opration
+			ac :> ac simulaion (not available)
 		"""
-		op = parse(arg)
+		op = ['op']
 
-		if len(arg) == 0:
+		if len(arg) == 0 and 0:
 			print("usage: run (opration)")
 			return (False)
 
 		res = runCir(op, self.cir)
 		self.res = (op[0], res)
+		self.do_res()
 	
 	def do_res(self, arg=[]):
 		if self.res == None:
 			print("No Result Is here")
 			return(False)
-		arg = parse(arg)
-
-		RES_OP[self.res[0]](arg)
-		#tr = threading.Thread(target=RES_OP[self.res[0]], args=(arg,))
-		#tr.start()
-
+		#arg = parse(arg)
 		
+		new_process = multiprocessing.Process(target=RES_OP[self.res[0]], args=(arg,))
+		new_process.start()
+
+def show_image(img, name='Image'):
+    cv2.imshow(name, img)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
 
 def parse(arg=""):
 	return arg.split()

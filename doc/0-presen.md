@@ -16,6 +16,7 @@ This project is seprated into 3 parts.
 -   C (memory managment)
 -   Python (Opp & moduoles)
 -   Sheard Libraries (DLL files)
+-   multiable process
 -   Algorithms like: DFS - Prefix
 -   Circuit mathmatic soluation
 -   Command line interface

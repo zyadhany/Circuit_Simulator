@@ -39,7 +39,7 @@ def addDcs(net, cir:Circuit):
         if "ac=" in net[i]:
             vac = GetValue(net[i][3:])
 
-    cir.add_vsource(net[0], n1=net[1], n2=net[2], dc_value=vdc, ac_value=vac)
+    cir.add_vsource(net[0], n1=net[1], n2=net[2], dc_value=GetValue(net[3]))
 
 COMP_MAPING = {'R':addres, 'V':addDcs, 'C':addcap, 'L':addind}
 
