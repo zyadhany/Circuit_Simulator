@@ -1,18 +1,29 @@
-#!/usr/bin/env python3
-
-import cv2
-from Circuit_Detector import *
-
-from Simulation import *
-from Simulation.ahkab.netlist_parser import parse_circuit
+import tkinter as tk
+from GUI_Application import *
+from console import SimulationCommand
 
 
 
-result = LiveDetect()
+def main():
+    sc = SimulationCommand()
+    root = tk.Tk()
+    components = []
+    sc.tkr = root
+    root = rootConfig(root)
+    Main = tk.Frame(root)
+    header, content = FrameBuild(Main)
 
-for i in result['circuit']:
-    print(i)
+    DET, RUN = headConfig(header)
+    ADD, RESET, bar, compBox = contentConfig(content)
 
-cv2.imshow('res', result['srcScale'])
-cv2.waitKey(0)
-#simulate()
+
+    DET.config(command=lambda sc=sc, cmp=components, fr=compBox: detect(sc, cmp, fr))
+    RUN.config(command=lambda sc=sc, cmp=components: run(sc, cmp))
+    ADD.config(command=lambda fr=compBox, cmp=components: add(fr, cmp))
+    RESET.config(command=lambda sc=sc, cmp=components: reset(sc, cmp))
+    #root.destroy()
+    Main.pack()
+    root.mainloop()
+
+if __name__ == "__main__":
+    main()

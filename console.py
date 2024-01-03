@@ -7,7 +7,7 @@ import cv2
 from Simulation import *
 from Circuit_Detector import *
 import matplotlib.pyplot as plt
-import threading
+import tkinter as tk
 from helper import *
 import time
 import multiprocessing
@@ -19,6 +19,7 @@ class SimulationCommand(cmd.Cmd):
 	net = []
 	gnd = 0
 	res = None
+	tkr = None
 
 	def emptyline(self):
 		pass
@@ -56,21 +57,17 @@ class SimulationCommand(cmd.Cmd):
 			print('component not found')
 			return (False)
 
-	def show_image(self, image, name=None):
+	def show_image(self, image, name=None, tkr=None):
+		if tkr:
+			tkr.destroy
 		cv2.imshow(name, image)
 		cv2.waitKey(0)
 		cv2.destroyAllWindows()  # Close the window after the image is displayed
 
-	def display_image_process(self, image=None, name=None):
-		new_process = multiprocessing.Process(target=show_image, args=(image,name,))
-		new_process.start()
-		pass
-
-	def do_detect(self, arg, itrateValue=1):
+	def do_detect(self, arg=[], itrateValue=1):
 		res = LiveDetect()
 		if not res:
 			return (False)
-
 		self.do_reset()
 		net = []
 
@@ -78,14 +75,18 @@ class SimulationCommand(cmd.Cmd):
 			print("No circuit detected")
 			return (False)
 
-		self.display_image_process(res['srcScale'], 'src')
-		#self.display_image_process(res['grayScale'], 'gray')
+		display_image_process(res['srcScale'], 'src')
+		#display_image_process(res['grayScale'], 'gray')
 
 		if itrateValue:
 			ItrateCircValue(res['circuit'])
-		for comp in res['circuit']:
-			net.append(str(comp))
-		BuildCirc(net, self)
+			for comp in res['circuit']:
+				net.append(str(comp))
+			BuildCirc(net, self)
+		else:
+			for comp in res['circuit']:
+				self.net.append(str(comp))
+		print(self.net.append(str(comp)))
 
 	def do_add(self, arg):
 		"""add element to circuit with netlest"""
@@ -108,7 +109,7 @@ class SimulationCommand(cmd.Cmd):
 		COMP_MAPING[comp](net, self.cir)
 		self.net.append(net)
 
-	def do_run(self, arg):
+	def do_run(self, arg=[]):
 		""" run simmulation:
 			usage: run (opration) ->
 			op :> simple dc opration
@@ -129,14 +130,19 @@ class SimulationCommand(cmd.Cmd):
 			print("No Result Is here")
 			return(False)
 		#arg = parse(arg)
-		
 		new_process = multiprocessing.Process(target=RES_OP[self.res[0]], args=(arg,))
 		new_process.start()
 
 def show_image(img, name='Image'):
-    cv2.imshow(name, img)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+	cv2.imshow(name, img)
+	cv2.waitKey(0)
+	cv2.destroyAllWindows()
+	exit()
+
+def display_image_process(image=None, name=None):
+	new_process = multiprocessing.Process(target=show_image, args=(image,name))
+	new_process.start()
+	pass
 
 def parse(arg=""):
 	return arg.split()

@@ -1,6 +1,7 @@
 import tkinter as tk
-from opjects import *
 import os
+from .opjects import *
+from .compframe import compFrame
 
 current_directory = os.path.dirname(os.path.abspath(__file__))
 
@@ -15,60 +16,71 @@ def rootConfig(root:tk.Tk):
     
     # name and icon
     root.title("Simulation")
-    root.iconbitmap(getPath("resource\icon.ico"))
+    root.iconbitmap(getPath("resource/icon.ico"))
 
     # size
     window_width = root.winfo_screenwidth()
     window_height = root.winfo_screenheight()
-    root.config(width=window_width, height=window_height)
-    root.minsize(1280, 720)  
+    root.config(width=500, height=720)
+
     root.attributes('-fullscreen', False)
     root.bind("<F11>", lambda event:toggle_fullscreen(root))
-    
-    root.bind("<q>", lambda event:root.quit())
+    root.bind("<Escape>", lambda event:root.quit())
 
     return root
 
 def headConfig(header:tk.Tk):
-    run = Button(header)
-    run.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
-    run.pack(expand=True, padx=10, pady=10)  # Add padding for better visualization
-    run.pack()
-    return header
 
+    DET = Button(header, text='DET')
+    DET.shape = [40, 40]
+    DET.bg_image = getPath('resource/DET.jpeg')
+    DET.pack(side=tk.LEFT, padx=(70, 20), pady=10)
+    
+    RUN = Button(header, text='RUN')
+    RUN.shape = [40, 40]
+    RUN.bg_image = getPath('resource/run.jpg')
+    RUN.pack(side=tk.RIGHT, padx=(20, 70), pady=10)
+
+    return [DET, RUN]
+
+def contentConfig(content:tk.Tk):
+    
+    # TOP BAR
+    bar = tk.Frame(content)
+    ADD = Button(bar, text='ADD')
+    ADD.pack(side=tk.LEFT, padx=(20, 70), pady=10)
+    RESET = Button(bar, text='RESET')
+    RESET.pack(side=tk.RIGHT, padx=(70, 20), pady=10)
+    bar.pack()
+
+    compBox = tk.Frame(content)
+    compBox.pack(fill=tk.X)
+    return [ADD, RESET, bar, compBox]
 
 def FrameBuild(root:tk.Tk):
     window_width = root.winfo_screenwidth()
     window_height = root.winfo_screenheight()
 
-    # grid gemo
-    w_head = int(window_width * 0.9)
+    # grid geometry
+    w_head = int(window_width // 3)
     h_head = int(window_height * 0.1)
-    gc_head = 50
-    gr_head = 2
+    gc_head = 2
+    gr_head = 1
 
-    h_content = window_height - w_head
-    gc_content = gc_head
-    gr_content = 50
-
-    w_tool = window_width - w_head
-    gc_tool = 5
-    gr_tool = gr_head + gr_content
+    h_content = window_height - h_head
+    w_content = int(window_width)
+    gc_content = 1
+    gr_content = 1
 
     # Header Frame
-    header = tk.Frame(root, height=h_head, width=w_head, bg='blue')
+    header = tk.Frame(root, height=h_head, width=w_head, bg='#DBA159')
     header.grid(row=0, column=0, columnspan=gc_head, rowspan=gr_head, sticky='ew')
-    
-    # Toolbar Frame
-    toolbar = tk.Frame(root, height=window_height, width=w_tool, bg='red')
-    toolbar.grid(row=0, column=gc_head, columnspan=gc_tool, rowspan=gr_tool, sticky='ns')
 
     # Main Content Frame
-    content = tk.Frame(root, height=h_content, width=w_head, bg='green')
+    content = tk.Frame(root, height=h_content, width=w_head, bg='white')
     content.grid(row=gr_head, column=0, rowspan=gr_content, columnspan=gc_content, sticky='nsew')
 
     header.pack_propagate(False)
-    toolbar.pack_propagate(False)
     content.pack_propagate(False)
 
-    return([header, toolbar, content])
+    return([header, content])

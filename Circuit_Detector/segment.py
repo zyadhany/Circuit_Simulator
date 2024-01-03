@@ -5,9 +5,6 @@ from .opjects import *
 from .src.LoodDetect import CDEC
 from .constant import *
 
-my_opjects = [Resistance(), DCS(), Gnd()]
-#my_opjects = [Resistance(), DCS(), Inductor(), Capac(), ACS(), Gnd()]
-NOT_CIR_COMP = [Gnd]
 
 def FixNoding(nodes, circuit):
 	cnt = 1
